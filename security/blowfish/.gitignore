@@ -1,0 +1,12 @@
+*.o 
+tags 
+core 
+bftest 
+bfspeed 
+bf 
+libblowfish.a 
+.nfs* 
+*.old 
+*.bak 
+asm/*.o 
+output*

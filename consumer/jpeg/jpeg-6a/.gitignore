@@ -1,0 +1,13 @@
+*.o 
+cjpeg 
+djpeg 
+jpegtran 
+libjpeg.a 
+rdjpgcom 
+wrjpgcom
+ansi2knr 
+core 
+testout* 
+config.log 
+config.status
+

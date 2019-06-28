@@ -1,0 +1,13 @@
+make[2]: Entering directory '/home/lituo/workspace/riscv/mibench/consumer/mad/mad-0.14.2b/libmad'
+/bin/sh ./libtool --mode=compile gcc -DHAVE_CONFIG_H -I. -I. -I. -DFPM_DEFAULT     -Wall -g -O -fforce-mem -fforce-addr -fthread-jumps -fcse-follow-jumps -fcse-skip-blocks -fexpensive-optimizations -fregmove -fschedule-insns2 -c version.c
+gcc -DHAVE_CONFIG_H -I. -I. -I. -DFPM_DEFAULT -Wall -g -O -fforce-mem -fforce-addr -fthread-jumps -fcse-follow-jumps -fcse-skip-blocks -fexpensive-optimizations -fregmove -fschedule-insns2 -c version.c -o version.o
+gcc: error: unrecognized command line option '-fforce-mem'
+Makefile:237: recipe for target 'version.lo' failed
+make[2]: *** [version.lo] Error 1
+make[2]: Leaving directory '/home/lituo/workspace/riscv/mibench/consumer/mad/mad-0.14.2b/libmad'
+Makefile:413: recipe for target 'all-recursive' failed
+make[1]: *** [all-recursive] Error 1
+make[1]: Leaving directory '/home/lituo/workspace/riscv/mibench/consumer/mad/mad-0.14.2b'
+Makefile:558: recipe for target 'all-recursive-am' failed
+make: *** [all-recursive-am] Error 2
+

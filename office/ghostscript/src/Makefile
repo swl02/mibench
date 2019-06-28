@@ -174,7 +174,7 @@ CONFIG=
 # Define the name of the C compiler.
 
 #CC=gcc -mv8 -static
-CC=gcc -static
+CC=riscv64-unknown-elf-gcc -static
 #CC=gcc
 
 # Define the name of the linker for the final link step.
@@ -376,7 +376,7 @@ CAT=cat
 D=/
 EXPP=
 #EXP=sim-safe	 ./
-EXP=./
+EXP=spike pk 
 SHELL=/bin/sh
 SH=$(SHELL)
 SHP=$(SH) $(EXP)

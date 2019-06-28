@@ -11,7 +11,7 @@ ARCH = $(shell uname -m)
 
 # defaults:
 PGM = lame
-CC = gcc
+CC = riscv64-unknown-elf-gcc
 CC_OPTS =  -O
 GTK = 
 GTKLIBS = 

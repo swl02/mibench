@@ -20,7 +20,7 @@ manext = 1
 mandir = $(prefix)/man/man$(manext)
 
 # The name of your C compiler:
-CC= gcc
+CC= riscv64-unknown-elf-gcc
 
 # You may need to adjust these cc options:
 CFLAGS= -O  -I$(srcdir)
@@ -49,9 +49,9 @@ RM= rm -f
 # file rename command
 MV= mv
 # library (.a) file creation command
-AR= ar rc
+AR= riscv64-unknown-elf-ar rc
 # second step in .a creation (use "touch" if not needed)
-AR2= ranlib
+AR2= riscv64-unknown-elf-ranlib
 # installation program
 INSTALL= /usr/bin/install -c
 INSTALL_PROGRAM= ${INSTALL}

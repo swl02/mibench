@@ -1,0 +1,6 @@
+*.o
+rawcaudio 
+rawdaudio 
+timing
+../bin/* 
+../output*

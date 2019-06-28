@@ -20,7 +20,8 @@ MAKE=make -f Makefile
 #CC=cc
 #CFLAG= -O
 
-CC=gcc
+#CC=gcc
+CC=riscv64-unknown-elf-gcc
 CFLAG= -static -O3 -fomit-frame-pointer
 
 CFLAGS=$(OPTS) $(CFLAG)
@@ -97,11 +98,12 @@ test:	all
 	./bftest
 
 $(BLIB): $(LIBOBJ)
-	/bin/rm -f $(BLIB)
-	ar cr $(BLIB) $(LIBOBJ)
-	-if test -s ranlib; then ssbig-na-sstrix-ranlib $(BLIB); \
-	else if test -s ranlib; then ssbig-na-sstrix-ranlib $(BLIB); \
-	else exit 0; fi; fi
+	rm -f $(BLIB)
+	riscv64-unknown-elf-ar cr $(BLIB) $(LIBOBJ)
+	riscv64-unknown-elf-ranlib $(BLIB)
+	#-if test -s ranlib; then ssbig-na-sstrix-ranlib $(BLIB); \
+	#else if test -s ranlib; then ssbig-na-sstrix-ranlib $(BLIB); \
+	#else exit 0; fi; fi
 
 bf: bf.o $(BLIB)
 	$(CC) $(CFLAGS) -o bf bf.o $(BLIB)
@@ -125,7 +127,7 @@ depend:
 	makedepend $(LIBBF) $(TESTING_SRC)
 
 clean:
-	/bin/rm -f *.o tags core $(TESTING) $(BLIB) .nfs* *.old *.bak asm/*.o output*
+	rm -f *.o tags core $(TESTING) $(BLIB) .nfs* *.old *.bak asm/*.o output*
 
 dclean:
 	sed -e '/^# DO NOT DELETE THIS LINE/ q' Makefile >Makefile.new

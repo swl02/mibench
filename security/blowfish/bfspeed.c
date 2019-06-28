@@ -231,7 +231,7 @@ char **argv;
 #define COUNT(d) (count)
 	signal(SIGALRM,sig_done);
 	printf("Doing BF_set_key for 10 seconds\n");
-	alarm(10);
+	//alarm(10);
 #endif
 
 	Time_F(START);
@@ -243,7 +243,7 @@ char **argv;
 
 #ifdef SIGALRM
 	printf("Doing BF_encrypt's for 10 seconds\n");
-	alarm(10);
+	//alarm(10);
 #else
 	printf("Doing BF_encrypt %ld times\n",cb);
 #endif
@@ -261,7 +261,7 @@ char **argv;
 #ifdef SIGALRM
 	printf("Doing BF_cbc_encrypt on %ld byte blocks for 10 seconds\n",
 		BUFSIZE);
-	alarm(10);
+	//alarm(10);
 #else
 	printf("Doing BF_cbc_encrypt %ld times on %ld byte blocks\n",cc,
 		BUFSIZE);

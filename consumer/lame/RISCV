@@ -1,0 +1,17 @@
+brhist.c:5:10: fatal error: termcap.h: No such file or directory
+ #include <termcap.h>
+          ^~~~~~~~~~~
+compilation terminated.
+riscv64-unknown-elf-gcc -DHAVEMPGLIB -DLAMEPARSE -DNDEBUG -D__NO_MATH_INLINES -O3 -fomit-frame-pointer -funroll-loops -ffast-math  -finline-functions -Wall -DLAMESNDFILE  -DBRHIST -c main.c -o main.o
+main.c: In function 'main':
+main.c:134:3: warning: 'outf' may be used uninitialized in this function [-Wmaybe-uninitialized]
+   fwrite(mp3buffer,1,imp3,outf);
+   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+riscv64-unknown-elf-gcc -DHAVEMPGLIB -DLAMEPARSE -DNDEBUG -D__NO_MATH_INLINES -O3 -fomit-frame-pointer -funroll-loops -ffast-math  -finline-functions -Wall -DLAMESNDFILE  -DBRHIST -c brhist.c -o brhist.o
+brhist.c:5:10: fatal error: termcap.h: No such file or directory
+ #include <termcap.h>
+          ^~~~~~~~~~~
+compilation terminated.
+Makefile:275: recipe for target 'brhist.o' failed
+make: *** [brhist.o] Error 1
+
