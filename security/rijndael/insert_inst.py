@@ -1,29 +1,18 @@
-reader = open('aes.s','rw+')
-count = 0
-try:
-    # Further file processing goes here
-    while True:
-        # Get next line from file
-        line = reader.readline()
-        # if line is empty
-        # end of file is reached
-        if not line or count == 10:
-            break
+counter = 0
+with open('aes.s','r') as fp:
+    stream = fp.readlines()
 
-        ## inserting check on next line
+    for line in stream:
         if line.find(':') != -1 or line.find('.L') != -1:
-            
-            #.word   0x0bbe4977 =  chk 0x0bbe4
+            print('a')
             print(line)
-            reader.writelines(".word   0x0bbe4977\r\n")
-            
-        count = count + 1
+            line = line + "chk\n"
+            stream[counter] = line
 
-         
-            
+        counter = counter + 1 
 
-finally:
-    reader.close()
 
-## Problems
-# how do I know which value to insert for chk instruction
+with open('modified_aes.s','w') as fp:
+    fp.writelines(stream)
+
+
