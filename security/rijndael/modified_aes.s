@@ -5,26 +5,33 @@
 	.globl	set_key
 	.type	set_key, @function
 set_key:
+chk
 	andi	a5,a1,7
 	bnez	a5,.L2
+chk
 	addi	a5,a1,-16
 	li	a4,16
 	bleu	a5,a4,.L31
+chk
 	bnez	a1,.L2
+chk
 	ld	a0,0(a3)
 	slli	a0,a0,2
 	slliw	a0,a0,16
 	sraiw	a0,a0,16
 	ret
 .L2:
+chk
 	lbu	a5,1040(a3)
 	li	a0,0
 	andi	a5,a5,-4
 	sb	a5,1040(a3)
 	ret
 .L31:
+chk
 	andi	a2,a2,3
 	beqz	a2,.L2
+chk
 	lbu	a7,1040(a3)
 	srli	a1,a1,2
 	addi	a5,a1,6
@@ -53,15 +60,20 @@ set_key:
 	sd	a2,40(a3)
 	add	t4,a5,t4
 	beq	a1,t3,.L8
+chk
 	li	t3,8
 	beq	a1,t3,.L9
+chk
 	li	a0,4
 	beq	a1,a0,.L32
+chk
 .L7:
+chk
 	andi	a2,a7,3
 	li	a1,1
 	li	a0,1
 	beq	a2,a1,.L6
+chk
 	ld	a4,8(a3)
 	ld	a2,16(a3)
 	addi	a5,a3,528
@@ -78,9 +90,11 @@ set_key:
 	sd	a4,24(a5)
 	ld	a5,8(a3)
 	bleu	a5,a1,.L14
+chk
 	lui	a5,%hi(im_tab)
 	addi	a5,a5,%lo(im_tab)
 .L15:
+chk
 	ld	a4,0(a7)
 	addi	a7,a7,32
 	addi	a6,a6,-32
@@ -194,7 +208,9 @@ set_key:
 	sd	a4,56(a6)
 	ld	a4,8(a3)
 	bgtu	a4,a0,.L15
+chk
 .L14:
+chk
 	ld	a5,0(a7)
 	li	a0,1
 	sd	a5,0(a6)
@@ -205,22 +221,27 @@ set_key:
 	ld	a5,24(a7)
 	sd	a5,24(a6)
 .L6:
+chk
 	ld	s0,24(sp)
 	ld	s1,16(sp)
 	ld	s2,8(sp)
 	addi	sp,sp,32
 	jr	ra
 .L8:
+chk
 	ld	t5,16(a0)
 	lui	a7,%hi(fl_tab)
 	lui	t0,%hi(.LANCHOR0)
+chk
 	sd	t5,48(a3)
 	ld	t6,20(a0)
 	mv	a1,t1
 	addi	t0,t0,%lo(.LANCHOR0)
+chk
 	sd	t6,56(a3)
 	addi	a0,a7,%lo(fl_tab)
 .L12:
+chk
 	andi	a7,t6,0xff
 	srli	t3,t6,16
 	addi	a7,a7,768
@@ -262,16 +283,22 @@ set_key:
 	addi	a5,a5,48
 	addi	t0,t0,8
 	bgtu	t4,a5,.L12
+chk
 	lbu	a7,1040(a3)
 	j	.L7
+chk
 .L32:
+chk
 	lui	a7,%hi(fl_tab)
 	lui	t5,%hi(.LANCHOR0)
+chk
 	mv	a1,t1
 	mv	t6,a4
 	addi	t5,t5,%lo(.LANCHOR0)
+chk
 	addi	a0,a7,%lo(fl_tab)
 .L11:
+chk
 	andi	t3,a2,0xff
 	srli	t1,a2,16
 	addi	t3,t3,768
@@ -309,16 +336,21 @@ set_key:
 	addi	a5,a5,32
 	addi	t5,t5,8
 	bgtu	t4,a5,.L11
+chk
 	lbu	a7,1040(a3)
 	j	.L7
+chk
 .L9:
+chk
 	ld	t6,16(a0)
 	lui	a7,%hi(fl_tab)
 	lui	s0,%hi(.LANCHOR0)
+chk
 	sd	t6,48(a3)
 	ld	t2,20(a0)
 	mv	a1,t1
 	addi	s0,s0,%lo(.LANCHOR0)
+chk
 	sd	t2,56(a3)
 	ld	t0,24(a0)
 	sd	t0,64(a3)
@@ -326,6 +358,7 @@ set_key:
 	addi	a0,a7,%lo(fl_tab)
 	sd	t5,72(a3)
 .L13:
+chk
 	andi	a7,t5,0xff
 	srli	t3,t5,16
 	addi	a7,a7,768
@@ -396,16 +429,20 @@ set_key:
 	addi	a5,a5,64
 	addi	s0,s0,8
 	bgtu	t4,a5,.L13
+chk
 	lbu	a7,1040(a3)
 	j	.L7
+chk
 	.size	set_key, .-set_key
 	.align	1
 	.globl	encrypt
 	.type	encrypt, @function
 encrypt:
+chk
 	lbu	a5,1040(a2)
 	andi	a5,a5,1
 	beqz	a5,.L40
+chk
 	ld	t2,0(a0)
 	ld	t4,4(a0)
 	ld	a6,8(a0)
@@ -435,11 +472,15 @@ encrypt:
 	xor	a6,a6,a5
 	addi	a0,a2,48
 	beq	a7,t1,.L36
+chk
 	li	a5,14
 	beq	a7,a5,.L37
+chk
 	li	a5,10
 	beq	a7,a5,.L46
+chk
 .L35:
+chk
 	sd	t3,0(a1)
 	sd	a4,4(a1)
 	ld	s0,88(sp)
@@ -460,13 +501,16 @@ encrypt:
 	addi	sp,sp,96
 	jr	ra
 .L40:
+chk
 	li	a0,0
 	ret
 .L36:
+chk
 	ld	t4,48(a2)
 	lui	a5,%hi(ft_tab)
 	addi	a5,a5,%lo(ft_tab)
 .L39:
+chk
 	srli	t0,a4,8
 	srli	s3,a6,8
 	srli	s2,a3,8
@@ -684,6 +728,7 @@ encrypt:
 	xor	a3,a3,t1
 	addi	a0,a0,64
 .L38:
+chk
 	srli	t6,a4,8
 	srli	s1,a6,8
 	srli	t2,a3,8
@@ -1767,11 +1812,15 @@ encrypt:
 	xor	a6,a5,a6
 	xor	a3,a3,a0
 	j	.L35
+chk
 .L46:
+chk
 	lui	a5,%hi(ft_tab)
 	addi	a5,a5,%lo(ft_tab)
 	j	.L38
+chk
 .L37:
+chk
 	srli	s1,a4,8
 	srli	s0,a6,8
 	srli	t0,a3,8
@@ -1993,14 +2042,17 @@ encrypt:
 	xor	a6,a6,a7
 	addi	a0,a2,112
 	j	.L39
+chk
 	.size	encrypt, .-encrypt
 	.align	1
 	.globl	decrypt
 	.type	decrypt, @function
 decrypt:
+chk
 	lbu	a5,1040(a2)
 	andi	a5,a5,2
 	beqz	a5,.L54
+chk
 	ld	a6,4(a0)
 	ld	t5,0(a0)
 	ld	t1,8(a0)
@@ -2030,11 +2082,15 @@ decrypt:
 	xor	a0,t4,a0
 	addi	a6,a2,560
 	beq	a7,t3,.L50
+chk
 	li	a5,14
 	beq	a7,a5,.L51
+chk
 	li	a5,10
 	beq	a7,a5,.L60
+chk
 .L49:
+chk
 	sd	a4,0(a1)
 	sd	a3,4(a1)
 	ld	s0,88(sp)
@@ -2055,13 +2111,16 @@ decrypt:
 	addi	sp,sp,96
 	jr	ra
 .L54:
+chk
 	li	a0,0
 	ret
 .L50:
+chk
 	ld	t3,560(a2)
 	lui	a5,%hi(it_tab)
 	addi	a5,a5,%lo(it_tab)
 .L53:
+chk
 	srli	t6,a0,8
 	srli	s2,a4,8
 	srli	s1,a3,8
@@ -2279,6 +2338,7 @@ decrypt:
 	xor	a0,a0,a7
 	addi	a6,a6,64
 .L52:
+chk
 	srli	t6,a0,8
 	srli	t0,a4,8
 	srli	s1,a3,8
@@ -3362,11 +3422,15 @@ decrypt:
 	xor	t1,a5,a6
 	xor	a0,a0,s2
 	j	.L49
+chk
 .L60:
+chk
 	lui	a5,%hi(it_tab)
 	addi	a5,a5,%lo(it_tab)
 	j	.L52
+chk
 .L51:
+chk
 	srli	s0,a0,8
 	srli	t2,a4,8
 	srli	t0,a3,8
@@ -3588,6 +3652,7 @@ decrypt:
 	xor	a0,a0,a7
 	addi	a6,a2,624
 	j	.L53
+chk
 	.size	decrypt, .-decrypt
 	.globl	im_tab
 	.globl	il_tab
@@ -3600,9 +3665,11 @@ decrypt:
 	.section	.rodata
 	.align	3
 	.set	.LANCHOR0,. + 0
+chk
 	.type	rcon_tab, @object
 	.size	rcon_tab, 232
 rcon_tab:
+chk
 	.dword	1
 	.dword	2
 	.dword	4
@@ -3635,6 +3702,7 @@ rcon_tab:
 	.type	im_tab, @object
 	.size	im_tab, 8192
 im_tab:
+chk
 	.dword	0
 	.dword	185403662
 	.dword	370807324
@@ -4662,6 +4730,7 @@ im_tab:
 	.type	il_tab, @object
 	.size	il_tab, 8192
 il_tab:
+chk
 	.dword	82
 	.dword	9
 	.dword	106
@@ -5689,6 +5758,7 @@ il_tab:
 	.type	fl_tab, @object
 	.size	fl_tab, 8192
 fl_tab:
+chk
 	.dword	99
 	.dword	124
 	.dword	119
@@ -6716,6 +6786,7 @@ fl_tab:
 	.type	it_tab, @object
 	.size	it_tab, 8192
 it_tab:
+chk
 	.dword	1353184337
 	.dword	1399144830
 	.dword	3282310938
@@ -7743,6 +7814,7 @@ it_tab:
 	.type	ft_tab, @object
 	.size	ft_tab, 8192
 ft_tab:
+chk
 	.dword	2774754246
 	.dword	2222750968
 	.dword	2574743534
@@ -8770,6 +8842,7 @@ ft_tab:
 	.type	inv_s_box, @object
 	.size	inv_s_box, 256
 inv_s_box:
+chk
 	.byte	82
 	.byte	9
 	.byte	106
@@ -9029,6 +9102,7 @@ inv_s_box:
 	.type	s_box, @object
 	.size	s_box, 256
 s_box:
+chk
 	.byte	99
 	.byte	124
 	.byte	119
@@ -9286,3 +9360,4 @@ s_box:
 	.byte	-69
 	.byte	22
 	.ident	"GCC: (GNU) 7.2.0"
+chk
