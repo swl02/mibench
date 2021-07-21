@@ -6,10 +6,15 @@ chk_for_bb = []
 prev_inst = ""
 gap = 0
 
-#only branch for now
 def is_cfi(instruction,splitted_instruction):
-
-    if instruction.find('<') != -1 and len(splitted_instruction) == 5:
+    if (instruction.find("jal") != -1 or
+        instruction.find("jalr") != -1 or
+        instruction.find("beq") != -1 or
+        instruction.find("bne") != -1 or
+        instruction.find("bltu") != -1 or
+        instruction.find("bgeu") != -1 or
+        instruction.find("blt") != -1 or
+        instruction.find("bge") != -1) :
         return True
 
     return False
@@ -21,7 +26,7 @@ def is_label(instruction,splitted_instruction):
     return False
 
 def is_inst(instruction,splitted_instruction):
-    if instruction.find('<') != -1 and len(splitted_instruction) == 4:
+    if instruction.find('<') != -1 and len(splitted_instruction) != 2:
         return True
 
     return False
@@ -49,27 +54,24 @@ with open('aes.dump','r') as fp:
             continue        
 
         # #detect all instruction
-        if (len(next_splitted_string) == 4 or len(next_splitted_string) == 5):
+        if (len(next_splitted_string) > 3):
             inst_code = int(next_splitted_string[1], 16)
             #doing checksum calculation
             upper_16 = inst_code >> 16
             lower_16 = inst_code & 0xffff
             checksum = checksum ^ lower_16 ^ upper_16
 
-
-        print("turn " + str(counter) + "\n")
-        print(splitted_string)
-        print(next_splitted_string)
-
         if ((is_cfi(prev_inst,splitted_string) or is_label(prev_inst,splitted_string)) and (is_cfi(inst,next_splitted_string) or is_label(inst,next_splitted_string))) :
 
             if ((is_cfi(prev_inst,splitted_string) and is_label(inst,next_splitted_string) and gap == 1) != True):
+                print(prev_inst)
+                print(inst)
                 chk_for_bb.append(checksum)
                 checksum = 0
                 gap = 0
                 prev_inst = inst
 
-        # if counter == 20:
+        # if counter == 100:
         #     break
 
         #debugging purpose
