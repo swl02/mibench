@@ -1,10 +1,8 @@
-
  /*
    -----------------------------------------------------------------------
    Copyright (c) 2001 Dr Brian Gladman <brg@gladman.uk.net>, Worcester, UK
    
    TERMS
-
    Redistribution and use in source and binary forms, with or without
    modification, are permitted provided that the following conditions
    are met:
@@ -13,16 +11,13 @@
    2. Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.
-
    This software is provided 'as is' with no guarantees of correctness or
    fitness for purpose.
    -----------------------------------------------------------------------
-
    1. FUNCTION
  
    The AES algorithm Rijndael implemented for block and key sizes of 128,
    192 and 256 bits (16, 24 and 32 bytes) by Brian Gladman.
-
    This is an implementation of the AES encryption algorithm (Rijndael)
    designed by Joan Daemen and Vincent Rijmen. This version is designed
    to provide both fixed and dynamic block and key lengths and can also 
@@ -50,11 +45,9 @@
        slower version is provided.
    j.  If fast decryption key scheduling is needed define ONE_IM_TABLE
        or FOUR_IM_TABLES for higher speed (2 or 8 kbytes extra).
-
    3. USE OF DEFINES
   
    NOTE: some combinations of the following defines are disabled below.
-
    UNROLL or PARTIAL_UNROLL control the extent to which loops are unrolled
    in the main encryption and decryption routines. UNROLL does a complete
    unroll while PARTIAL_UNROLL uses a loop with two rounds in it.
@@ -71,16 +64,13 @@
    using tables.
  
 #define FF_TABLES
-
    If ARRAYS is defined the state variables for encryption are defined as
    arrays, otherwise they are defined as individual variables. The latter
    is useful on machines where these variables can be mapped to registers. 
  
 #define ARRAYS
-
    If FAST_VARIABLE is defined with variable block length, faster but larger
    code is used for encryption and decryption.
-
 #define FAST_VARIABLE
  */
 
@@ -93,7 +83,6 @@
  /*
    This code uses three sets of tables, each of which can be a single table
    or four sub-tables to gain a further speed advantage.
-
    The defines ONE_TABLE and FOUR_TABLES control the use of tables in the 
    main encryption rounds and have the greatest impact on speed.  If neither
    is defined, tables are not used and the resulting code is then very slow.
@@ -103,19 +92,15 @@
    
 #define ONE_TABLE
 #define FOUR_TABLES
-
    The defines ONE_LR_TABLE and FOUR_LR_TABLES apply to the last round only
    and their impact on speed is hence less. It is unlikely to be sensible to
    apply these options unless the correspnding option above is also used.    
-
 #define ONE_LR_TABLE
 #define FOUR_LR_TABLES
-
    The ONE_IM_TABLE and FOUR_IM_TABLES options use tables to speed up the 
    generation of the decryption key schedule. This will only be useful in
    limited situations where decryption speed with frequent re-keying is
    needed.
-
 #define ONE_IM_TABLE
 #define FOUR_IM_TABLES
  */
@@ -202,11 +187,9 @@
    The following defines provide alternative definitions of FFmulX that might
    give improved performance if a fast 32-bit multiply is not available. Note
    that a temporary variable u needs to be defined where FFmulX is used.
-
 #define FFmulX(x) (u = (x) & m1, u |= (u >> 1), ((x) & m2) << 1) ^ ((u >> 3) | (u >> 6)) 
 #define m4  0x1b1b1b1b
 #define FFmulX(x) (u = (x) & m1, ((x) & m2) << 1) ^ ((u - (u >> 7)) & m4) 
-
  */
 
 /* perform column mix operation on four bytes in parallel */
@@ -249,11 +232,9 @@ static word  im_tab[4][256];
 
 /*
    Generate the tables for the dynamic table option
-
    It will generally be sensible to use tables to compute finite 
    field multiplies and inverses but where memory is scarse this 
    code might sometimes be better.
-
    return 2 ^ (n - 1) where n is the bit number of the highest bit
    set in x with x in the range 1 < x < 0x00000200.   This form is
    used so that locals within FFinv can be bytes rather than words
@@ -595,11 +576,9 @@ cf_dec c_name(set_key)(const byte in_key[], const word n_bytes, const enum aes_k
    which, given the column (c) of the output state variable, give
    the input state variables which are needed for each row (r) of 
    the state.
-
    For the fixed block size options, compilers should reduce these 
    two expressions to fixed variable references. But for variable 
    block size code conditional clauses will sometimes be returned.
-
    y = output word, x = input word, r = row, c = column for r = 0, 
    1, 2 and 3 = column accessed for row r.
  */

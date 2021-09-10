@@ -1,0 +1,35 @@
+
+modified_aes.o:     file format elf64-littleriscv
+
+
+Disassembly of section .text:
+
+0000000000000000 <fault>:
+      5a:	4106c883          	lbu	a7,1040(a3)
+      5e:	8189                	c.srli	a1,0x2
+      60:	00658793          	addi	a5,a1,6
+      64:	ffc8f893          	andi	a7,a7,-4
+      68:	00c8e8b3          	or	a7,a7,a2
+      6c:	e69c                	c.sd	a5,8(a3)
+      6e:	41168823          	sb	a7,1040(a3)
+      72:	e28c                	c.sd	a1,0(a3)
+      74:	6118                	c.ld	a4,0(a0)
+      76:	00758e93          	addi	t4,a1,7
+      7a:	0e8a                	c.slli	t4,0x2
+      7c:	ea98                	c.sd	a4,16(a3)
+      7e:	00453303          	ld	t1,4(a0)
+      82:	1101                	c.addi	sp,-32
+      84:	40be8eb3          	sub	t4,t4,a1
+      88:	0066bc23          	sd	t1,24(a3)
+      8c:	00853803          	ld	a6,8(a0)
+      90:	01068793          	addi	a5,a3,16
+      94:	0e8e                	c.slli	t4,0x3
+      96:	0306b023          	sd	a6,32(a3)
+      9a:	00c53603          	ld	a2,12(a0)
+      9e:	ec22                	c.sdsp	s0,24(sp)
+      a0:	e826                	c.sdsp	s1,16(sp)
+      a2:	e44a                	c.sdsp	s2,8(sp)
+      a4:	4e19                	c.li	t3,6
+      a6:	f690                	c.sd	a2,40(a3)
+      a8:	9ebe                	c.add	t4,a5
+      aa:	1fc58d63          	beq	a1,t3,2a4 <.L8>
