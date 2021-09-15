@@ -1,7 +1,7 @@
 	.file	"aes.c"
 	.option nopic
 	.text
-	.align	1
+	.align	2
 	.globl	set_key
 	.type	set_key, @function
 set_key:
@@ -399,7 +399,7 @@ set_key:
 	lbu	a7,1040(a3)
 	j	.L7
 	.size	set_key, .-set_key
-	.align	1
+	.align	2
 	.globl	encrypt
 	.type	encrypt, @function
 encrypt:
@@ -1994,7 +1994,7 @@ encrypt:
 	addi	a0,a2,112
 	j	.L39
 	.size	encrypt, .-encrypt
-	.align	1
+	.align	2
 	.globl	decrypt
 	.type	decrypt, @function
 decrypt:

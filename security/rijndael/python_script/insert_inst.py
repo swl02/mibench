@@ -8,6 +8,7 @@ def is_cfi(inst):
         inst.find("jalr") != -1 or
         inst.find("beq") != -1 or
         inst.find("bne") != -1 or
+        inst.find("ble") != -1 or
         inst.find("bltu") != -1 or
         inst.find("bgeu") != -1 or
         inst.find("blt") != -1 or
@@ -59,8 +60,8 @@ with open('../assembly_folder/' + sys.argv[1] + '.s','r') as fp:
     for inst in stream:
 
         # enable integrity checking (assert csr)
-        if counter == 7: 
-            prev_inst = prev_inst + "\tcsrwi\t0xff,1\n"
+        # if counter == 7: 
+        #     prev_inst = prev_inst + "\tcsrwi\t0xff,1\n"
         
         # adding chk instruction
         if chk_counter < len(chk) and not is_data_seg(inst):

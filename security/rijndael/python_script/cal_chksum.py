@@ -73,7 +73,8 @@ def Expand_Inst(inst,inst_name):
             addi16sp_opc = UInt(0x1f,7)
 
         addi16sp = Cat(addi16spImm,rd,UInt(0,3),rd,addi16sp_opc)
-        me = Cat(Extract(luiImm,12,20),rd,opc)
+
+        me = Cat(Extract(int(luiImm,2),12,20),rd,opc)
 
         if (rd == x0 or rd == sp):
             return addi16sp
@@ -128,6 +129,16 @@ def Expand_Inst(inst,inst_name):
         rdp = Extract(inst,7,3)
         rs2p = Extract(inst,2,3)
         return Cat(rs2p,rdp,"100",rdp,"0110011")
+    elif (inst_name.find("c.and") != -1):
+        rdp = Extract(inst,7,3)
+        rs2p = Extract(inst,2,3)
+        return Cat(rs2p,rdp,"111",rdp,"0110011")
+    elif (inst_name.find("c.or") != -1):
+        rdp = Extract(inst,7,3)
+        rs2p = Extract(inst,2,3)
+        return Cat(rs2p,rdp,"110",rdp,"0110011")
+    elif (inst_name.find("c.fld") != -1):    
+        return Cat(bin(ldImm)[2:], rs1p, UInt(3,3), rs2p, UInt(0x07,7))
     else:
         print("ABORT !!! " + inst_name + " with code " + str(inst_code) + " not implemented \n")
         exit(-1)
@@ -190,11 +201,12 @@ with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
     stream = fp.readlines()
     for inst in stream:
         
-        #skipping header
+        ## skipping header
         if (skip < 6):
             skip = skip + 1
             continue
 
+        # starting 
         if (skip == 6):
             prev_inst = inst
             skip = skip + 1
@@ -203,7 +215,7 @@ with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
         splitted_string = prev_inst.split()
         next_splitted_string = inst.split()
 
-        ## skipping newline
+        ## skipping newline and Header Information
         if (len(next_splitted_string) == 0 or next_splitted_string[0] == "Disassembly"):
             continue        
 
@@ -215,6 +227,7 @@ with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
                 inst_code = int(next_splitted_string[1], 16)
                 
                 if (next_splitted_string[2].find("c.") != -1):
+                    # print(next_splitted_string)
                     inst_code = Expand_Inst(inst_code,next_splitted_string[2])
 
                 #doing checksum calculation
@@ -222,8 +235,7 @@ with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
                 lower_16 = inst_code & 0xffff
                 checksum = checksum ^ lower_16 ^ upper_16
 
-                print(hex(inst_code))
-
+        # identify basic block via label and control flow instruction
         if ((is_cfi(prev_inst,splitted_string) or is_label(prev_inst,splitted_string)) and (is_cfi(inst,next_splitted_string) or is_label(inst,next_splitted_string))) :
             if ((is_cfi(prev_inst,splitted_string) and is_label(inst,next_splitted_string) and gap == 1) != True):
                 chk_for_bb.append(checksum)

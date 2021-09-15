@@ -1,7 +1,7 @@
 	.file	"aesxam.c"
 	.option nopic
 	.text
-	.align	1
+	.align	2
 	.globl	fillrand
 	.type	fillrand, @function
 fillrand:
@@ -87,7 +87,7 @@ fillrand:
 .L23:
 	ret
 	.size	fillrand, .-fillrand
-	.align	1
+	.align	2
 	.globl	encfile
 	.type	encfile, @function
 encfile:
@@ -798,7 +798,7 @@ encfile:
 	li	a0,-8
 	j	.L69
 	.size	encfile, .-encfile
-	.align	1
+	.align	2
 	.globl	decfile
 	.type	decfile, @function
 decfile:
@@ -1001,7 +1001,7 @@ decfile:
 	j	.L88
 	.size	decfile, .-decfile
 	.section	.text.startup,"ax",@progbits
-	.align	1
+	.align	2
 	.globl	main
 	.type	main, @function
 main:

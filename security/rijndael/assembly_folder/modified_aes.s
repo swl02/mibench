@@ -1,21 +1,20 @@
 	.file	"aes.c"
 	.option nopic
 	.text
-	.align	1
+	.align	2
 	.globl	set_key
 	.type	set_key, @function
 set_key:
-	csrwi	0xff,1
-	.word	0x6382977
+	.word	0x6182977
 	andi	a5,a1,7
 	bnez	a5,.L2
-	.word	0x711977
+	.word	0x411977
 	addi	a5,a1,-16
 	li	a4,16
 	bleu	a5,a4,.L31
 	.word	0x9c66977
 	bnez	a1,.L2
-	.word	0xfbdf977
+	.word	0x2054977
 	ld	a0,0(a3)
 	slli	a0,a0,2
 	slliw	a0,a0,16
@@ -23,7 +22,7 @@ set_key:
 	csrwi	0xff,0
 	ret
 .L2:
-	.word	0x18fb977
+	.word	0xc370977
 	lbu	a5,1040(a3)
 	li	a0,0
 	andi	a5,a5,-4
@@ -31,10 +30,10 @@ set_key:
 	csrwi	0xff,0
 	ret
 .L31:
-	.word	0x8ac0977
+	.word	0x8cc0977
 	andi	a2,a2,3
 	beqz	a2,.L2
-	.word	0xe826977
+	.word	0xd80f977
 	lbu	a7,1040(a3)
 	srli	a1,a1,2
 	addi	a5,a1,6
@@ -63,19 +62,19 @@ set_key:
 	sd	a2,40(a3)
 	add	t4,a5,t4
 	beq	a1,t3,.L8
-	.word	0xb235977
+	.word	0xb335977
 	li	t3,8
 	beq	a1,t3,.L9
-	.word	0xad95977
+	.word	0xb395977
 	li	a0,4
 	beq	a1,a0,.L32
 .L7:
-	.word	0xe87e977
+	.word	0xde7e977
 	andi	a2,a7,3
 	li	a1,1
 	li	a0,1
 	beq	a2,a1,.L6
-	.word	0x2532977
+	.word	0x2e32977
 	ld	a4,8(a3)
 	ld	a2,16(a3)
 	addi	a5,a3,528
@@ -96,7 +95,7 @@ set_key:
 	lui	a5,%hi(im_tab)
 	addi	a5,a5,%lo(im_tab)
 .L15:
-	.word	0xbb05977
+	.word	0xb405977
 	ld	a4,0(a7)
 	addi	a7,a7,32
 	addi	a6,a6,-32
@@ -222,7 +221,7 @@ set_key:
 	ld	a5,24(a7)
 	sd	a5,24(a6)
 .L6:
-	.word	0x636c977
+	.word	0xbaf7977
 	ld	s0,24(sp)
 	ld	s1,16(sp)
 	ld	s2,8(sp)
@@ -230,7 +229,7 @@ set_key:
 	csrwi	0xff,0
 	jr	ra
 .L8:
-	.word	0xc89977
+	.word	0xcca977
 	ld	t5,16(a0)
 	lui	a7,%hi(fl_tab)
 	lui	t0,%hi(.LANCHOR0)
@@ -241,7 +240,7 @@ set_key:
 	sd	t6,56(a3)
 	addi	a0,a7,%lo(fl_tab)
 .L12:
-	.word	0xd90a977
+	.word	0x6627977
 	andi	a7,t6,0xff
 	srli	t3,t6,16
 	addi	a7,a7,768
@@ -283,11 +282,11 @@ set_key:
 	addi	a5,a5,48
 	addi	t0,t0,8
 	bgtu	t4,a5,.L12
-	.word	0xafd5977
+	.word	0xb7f5977
 	lbu	a7,1040(a3)
 	j	.L7
 .L32:
-	.word	0x8707977
+	.word	0x8783977
 	lui	a7,%hi(fl_tab)
 	lui	t5,%hi(.LANCHOR0)
 	mv	a1,t1
@@ -295,7 +294,7 @@ set_key:
 	addi	t5,t5,%lo(.LANCHOR0)
 	addi	a0,a7,%lo(fl_tab)
 .L11:
-	.word	0xec26977
+	.word	0xebc9977
 	andi	t3,a2,0xff
 	srli	t1,a2,16
 	addi	t3,t3,768
@@ -333,11 +332,11 @@ set_key:
 	addi	a5,a5,32
 	addi	t5,t5,8
 	bgtu	t4,a5,.L11
-	.word	0xb215977
+	.word	0xbb35977
 	lbu	a7,1040(a3)
 	j	.L7
 .L9:
-	.word	0x89ef977
+	.word	0x89ac977
 	ld	t6,16(a0)
 	lui	a7,%hi(fl_tab)
 	lui	s0,%hi(.LANCHOR0)
@@ -352,7 +351,7 @@ set_key:
 	addi	a0,a7,%lo(fl_tab)
 	sd	t5,72(a3)
 .L13:
-	.word	0xa8ff977
+	.word	0x9d8a977
 	andi	a7,t5,0xff
 	srli	t3,t5,16
 	addi	a7,a7,768
@@ -423,19 +422,19 @@ set_key:
 	addi	a5,a5,64
 	addi	s0,s0,8
 	bgtu	t4,a5,.L13
-	.word	0xc0b5977
+	.word	0xd475977
 	lbu	a7,1040(a3)
 	j	.L7
 	.size	set_key, .-set_key
-	.align	1
+	.align	2
 	.globl	encrypt
 	.type	encrypt, @function
 encrypt:
-	.word	0x7f65977
+	.word	0x7365977
 	lbu	a5,1040(a2)
 	andi	a5,a5,1
 	beqz	a5,.L40
-	.word	0xbffd977
+	.word	0x465a977
 	ld	t2,0(a0)
 	ld	t4,4(a0)
 	ld	a6,8(a0)
@@ -468,7 +467,7 @@ encrypt:
 	.word	0x93e8977
 	li	a5,14
 	beq	a7,a5,.L37
-	.word	0x6ef977
+	.word	0x5cef977
 	li	a5,10
 	beq	a7,a5,.L46
 .L35:
@@ -494,17 +493,17 @@ encrypt:
 	csrwi	0xff,0
 	jr	ra
 .L40:
-	.word	0x4cf977
+	.word	0x5b6f977
 	li	a0,0
 	csrwi	0xff,0
 	ret
 .L36:
-	.word	0x5f9d977
+	.word	0x8286977
 	ld	t4,48(a2)
 	lui	a5,%hi(ft_tab)
 	addi	a5,a5,%lo(ft_tab)
 .L39:
-	.word	0x5eff977
+	.word	0x8574977
 	srli	t0,a4,8
 	srli	s3,a6,8
 	srli	s2,a3,8
@@ -1807,12 +1806,12 @@ encrypt:
 	xor	a3,a3,a0
 	j	.L35
 .L46:
-	.word	0x391a977
+	.word	0x3850977
 	lui	a5,%hi(ft_tab)
 	addi	a5,a5,%lo(ft_tab)
 	j	.L38
 .L37:
-	.word	0x3826977
+	.word	0x527e977
 	srli	s1,a4,8
 	srli	s0,a6,8
 	srli	t0,a3,8
@@ -2035,15 +2034,15 @@ encrypt:
 	addi	a0,a2,112
 	j	.L39
 	.size	encrypt, .-encrypt
-	.align	1
+	.align	2
 	.globl	decrypt
 	.type	decrypt, @function
 decrypt:
-	.word	0xec63977
+	.word	0x9093977
 	lbu	a5,1040(a2)
 	andi	a5,a5,2
 	beqz	a5,.L54
-	.word	0xe568977
+	.word	0xd2ee977
 	ld	a6,4(a0)
 	ld	t5,0(a0)
 	ld	t1,8(a0)
@@ -2073,10 +2072,10 @@ decrypt:
 	xor	a0,t4,a0
 	addi	a6,a2,560
 	beq	a7,t3,.L50
-	.word	0x7c55977
+	.word	0x7355977
 	li	a5,14
 	beq	a7,a5,.L51
-	.word	0xeb60977
+	.word	0xe710977
 	li	a5,10
 	beq	a7,a5,.L60
 .L49:
@@ -2102,7 +2101,7 @@ decrypt:
 	csrwi	0xff,0
 	jr	ra
 .L54:
-	.word	0x7ef977
+	.word	0x5cef977
 	li	a0,0
 	csrwi	0xff,0
 	ret
@@ -2112,7 +2111,7 @@ decrypt:
 	lui	a5,%hi(it_tab)
 	addi	a5,a5,%lo(it_tab)
 .L53:
-	.word	0x5cf977
+	.word	0x5b6f977
 	srli	t6,a0,8
 	srli	s2,a4,8
 	srli	s1,a3,8
@@ -2330,7 +2329,7 @@ decrypt:
 	xor	a0,a0,a7
 	addi	a6,a6,64
 .L52:
-	.word	0x5f9d977
+	.word	0x8286977
 	srli	t6,a0,8
 	srli	t0,a4,8
 	srli	s1,a3,8
@@ -3415,7 +3414,7 @@ decrypt:
 	xor	a0,a0,s2
 	j	.L49
 .L60:
-	.word	0x5eff977
+	.word	0x8574977
 	lui	a5,%hi(it_tab)
 	addi	a5,a5,%lo(it_tab)
 	j	.L52
