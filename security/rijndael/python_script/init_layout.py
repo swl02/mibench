@@ -31,6 +31,11 @@ def is_label(inst):
     
     return False
 
+def is_main(inst):
+    if inst.find('main:') != -1:
+        return True
+    return False
+
 def is_data_seg(inst):
     if (inst.find(".dword") != -1 or
         inst.find(".size") != -1 or
@@ -60,8 +65,8 @@ with open('../assembly_folder/' + sys.argv[1] + '.s','r') as fp:
     for inst in stream:
 
         # enable integrity checking (assert csr)
-        # if counter == 7: 
-        #     prev_inst = prev_inst + "\tcsrwi\t0xff,1\n"
+        if is_main(prev_inst) : 
+            prev_inst = prev_inst + "\tcsrwi\t0xff,1\n"
         
         # adding chk instruction
         if chk_counter < len(chk) and not is_data_seg(inst):

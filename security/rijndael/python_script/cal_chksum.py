@@ -239,14 +239,18 @@ with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
         if ((is_cfi(prev_inst,splitted_string) or is_label(prev_inst,splitted_string)) and (is_cfi(inst,next_splitted_string) or is_label(inst,next_splitted_string))) :
             if ((is_cfi(prev_inst,splitted_string) and is_label(inst,next_splitted_string) and gap == 1) != True):
                 chk_for_bb.append(checksum)
+                
+                if (checksum == 0) :
+                    print(prev_inst)
+                    print(inst)
+
                 checksum = 0
                 gap = 0
                 prev_inst = inst
 
-        # if counter == 10:
-        #     break
 
-        #debugging purpose
+
+        #debugging purpose + identify bb pattern
         gap = gap + 1        
         counter = counter + 1
 
