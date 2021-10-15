@@ -1,4 +1,7 @@
 rijndael 
 output*
 emulator/
+assembly_folder/
+chk_table/
+dump/
 
