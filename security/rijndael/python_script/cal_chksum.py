@@ -1,13 +1,14 @@
 import sys
 
-#read instruction first
+# variables
 counter = 0
 skip = 0
 checksum = 0
 chk_for_bb = []
 prev_inst = ""
 gap = 0
-
+dummy_chk = []
+start = 0
 def Expand_Inst(inst,inst_name):
 
     rs1p = UInt(1,2) + Extract(inst,7,3)
@@ -81,8 +82,6 @@ def Expand_Inst(inst,inst_name):
         else:
             return me
 
-    elif (inst_name.find("c.addi") != -1):
-        return Cat(addiImm,rd,UInt(0,3),rd,UInt(0x13,7))
     elif (inst_name.find("c.addiw") != -1):
         opc = ""
         if (rd.find("1") != -1):
@@ -90,6 +89,8 @@ def Expand_Inst(inst,inst_name):
         else:
             opc = UInt(0x1f,7)
         return Cat(addiImm,rd,UInt(0,3),rd,opc)
+    elif (inst_name.find("c.addi") != -1):
+        return Cat(addiImm,rd,UInt(0,3),rd,UInt(0x13,7))
     elif (inst_name.find("c.addi16sp") != -1):
         addi16sp_opc = ""
         addi16sp = ""
@@ -111,7 +112,8 @@ def Expand_Inst(inst,inst_name):
     elif (inst_name.find("c.mv") != -1): 
         return Cat(rs2,x0,UInt(0,3),rd,UInt(0x33,7))        
     elif (inst_name.find("c.add") != -1 or inst_name.find("c.addw") != -1):
-        return Cat(rs2,rd,UInt(0,3),rd,UInt(0x33,7))        
+        rd = Extract(inst,7,5) 
+        return Cat(rs2,rd,UInt(0,3),rd,UInt(0x3b,7))  
     elif (inst_name.find("c.sub") != -1): 
         return Cat("0100000",rs2,rd,UInt(0,3),rd,UInt(0x33,7))        
     elif (inst_name.find("c.nop") != -1): 
@@ -197,6 +199,13 @@ def is_inst(instruction,splitted_instruction):
 
     return False
 
+def is_block(splitted_instruction):
+    if len(splitted_instruction) == 3:
+        return True
+
+
+    return False
+
 with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
     stream = fp.readlines()
     for inst in stream:
@@ -218,43 +227,73 @@ with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
         ## skipping newline and Header Information
         if (len(next_splitted_string) == 0 or next_splitted_string[0] == "Disassembly"):
             continue        
-
+        
         # #detect all instruction
         if (len(next_splitted_string) > 2):
             # need to ignore chk instruction
             # need to ignore chk enabling csr
             if (next_splitted_string[2].find("977") == -1 and next_splitted_string[1].find("0ff0d073") == -1):
                 inst_code = int(next_splitted_string[1], 16)
+                # print(next_splitted_string)
                 
                 if (next_splitted_string[2].find("c.") != -1):
-                    # print(next_splitted_string)
                     inst_code = Expand_Inst(inst_code,next_splitted_string[2])
+                    # print(hex(inst_code))
 
-                #doing checksum calculation
+                # doing checksum calculation
                 upper_16 = inst_code >> 16
                 lower_16 = inst_code & 0xffff
                 checksum = checksum ^ lower_16 ^ upper_16
-
-        # identify basic block via label and control flow instruction
-        if ((is_cfi(prev_inst,splitted_string) or is_label(prev_inst,splitted_string)) and (is_cfi(inst,next_splitted_string) or is_label(inst,next_splitted_string))) :
-            if ((is_cfi(prev_inst,splitted_string) and is_label(inst,next_splitted_string) and gap == 1) != True):
-                chk_for_bb.append(checksum)
                 
-                if (checksum == 0) :
-                    print(prev_inst)
-                    print(inst)
+            elif next_splitted_string[2].find("977") != -1 :
+                # special case
+                if next_splitted_string[2] == "0x977":               
+                    dummy_chk.append("0x0977")
+                else:
+                    # use dummy value as marker
+                    dummy_chk.append(next_splitted_string[2])
+                
+                scope = 1
 
-                checksum = 0
-                gap = 0
-                prev_inst = inst
 
+        # # identify basic block via label and control flow instruction
+        # if ((is_cfi(prev_inst,splitted_string) or is_label(prev_inst,splitted_string)) and (is_cfi(inst,next_splitted_string) or is_label(inst,next_splitted_string))) :
+        #     if ((is_cfi(prev_inst,splitted_string) and is_label(inst,next_splitted_string) and gap == 1) != True):
+                
+        #         if scope == 1:
+        #             if (checksum == 0x9c37):
+        #                 print("fuck\n")
 
+        #             chk_for_bb.append(checksum)
+                
+        #             scope = 0
+        #             checksum = 0
+        #             gap = 0
+        #             prev_inst = inst
 
-        #debugging purpose + identify bb pattern
-        gap = gap + 1        
-        counter = counter + 1
+        # #debugging purpose + identify bb pattern
+        # gap = gap + 1        
+        # counter = counter + 1
+
+        # identify basic block via the 0x977
+        # print(splitted_string)
+        if (is_block(next_splitted_string) or (len(next_splitted_string) == 2 and next_splitted_string[1].find("<atexit>") != -1)):
+            if start == 1:
+                chk_for_bb.append(checksum)
+            start = 1
+            checksum = 0
+            prev_inst = inst
+
 
 with open('../chk_table/' + sys.argv[1] + '.chk','w') as fp:
+    counter = 0
 
-    for chk in chk_for_bb:        
-        fp.writelines(str(hex(chk)) + '\n')
+    ## 0 for saving checksum table only
+    ## 1 for saving checksum table as well as do marking
+    # if sys.argv[2] == "0":
+    #     for chk in chk_for_bb:
+    #         fp.writelines(str(hex(chk) + '\n'))
+    # elif sys.argv[2] == "1":
+    for counter in range(len(dummy_chk)):        
+        fp.writelines(str(hex(chk_for_bb[counter])) + " " + dummy_chk[counter] + '\n')
+

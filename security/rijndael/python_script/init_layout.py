@@ -1,7 +1,8 @@
 import sys
+import random
 
 def write_inst(inst ,new_inst):
-    return inst + "\t.word\t"+ str(new_inst)[:-1] + "977" +"\n" 
+    return inst + "\t.word\t"+ new_inst + "977" +"\n" 
 
 def is_cfi(inst):
     if (inst.find("jal") != -1 or
@@ -9,6 +10,7 @@ def is_cfi(inst):
         inst.find("beq") != -1 or
         inst.find("bne") != -1 or
         inst.find("ble") != -1 or
+        inst.find("bgt") != -1 or
         inst.find("bltu") != -1 or
         inst.find("bgeu") != -1 or
         inst.find("blt") != -1 or
@@ -46,6 +48,7 @@ def is_data_seg(inst):
         inst.find(".byte") != -1 or
         inst.find(".align") != -1 or
         inst.find(".section") != -1 or
+        inst.find(".string") != -1 or
         inst.find(".type") != -1):
         return True
 
@@ -56,9 +59,9 @@ chk = []
 gap = 0
 prev_inst = ""
 modified_stream = []
-with open('../chk_table/' + sys.argv[1] + '.chk','r') as fp:
-    chk = fp.readlines()
-chk_counter = 0
+# with open('../chk_table/' + sys.argv[1] + '.chk','r') as fp:
+#     chk = fp.readlines()
+chk_counter = int(sys.argv[2])
 with open('../assembly_folder/' + sys.argv[1] + '.s','r') as fp:
     stream = fp.readlines()
 
@@ -68,17 +71,22 @@ with open('../assembly_folder/' + sys.argv[1] + '.s','r') as fp:
         if is_main(prev_inst) : 
             prev_inst = prev_inst + "\tcsrwi\t0xff,1\n"
         
+        #call subroutine for shared library glibc etc
+        if prev_inst.find("call")  != -1:
+            prev_inst = "\tcsrwi\t0xff,0\n" + prev_inst + "\tcsrwi\t0xff,1\n"
+
         # adding chk instruction
-        if chk_counter < len(chk) and not is_data_seg(inst):
+        if not is_data_seg(inst):
             if is_label(prev_inst) or is_cfi(prev_inst):
-                if not (is_label(inst) and is_cfi(prev_inst)):         
-                    prev_inst = write_inst(prev_inst,chk[chk_counter])
-                    chk_counter = chk_counter + 1
+                if not (is_label(inst) and is_cfi(prev_inst)): 
+                    if (prev_inst.find(".LC0") == -1):                        
+                        prev_inst = write_inst(prev_inst,hex(chk_counter))
+                        chk_counter = chk_counter + 1
 
         # disable integrity checking (deassert csr)
         if inst.find("ret") != -1 or inst.find("jr") != -1:
             prev_inst = prev_inst + "\tcsrwi\t0xff,0\n"
-        
+
         #adding it to the modified one
         modified_stream.append(prev_inst)
 

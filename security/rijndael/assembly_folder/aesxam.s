@@ -1,1274 +1,933 @@
 	.file	"aesxam.c"
 	.option nopic
 	.text
-	.align	1
+	.align	2
 	.globl	fillrand
 	.type	fillrand, @function
 fillrand:
-	lui	a4,%hi(mt.3157)
-	ld	a5,%lo(mt.3157)(a4)
+	addi	sp,sp,-48
+	sd	s0,40(sp)
+	addi	s0,sp,48
+	sd	a0,-40(s0)
+	mv	a5,a1
+	sw	a5,-44(s0)
+	lui	a5,%hi(mt.3157)
+	ld	a5,%lo(mt.3157)(a5)
 	beqz	a5,.L2
-	lui	a5,%hi(.LANCHOR0)
-	sd	zero,%lo(mt.3157)(a4)
+	lui	a5,%hi(mt.3157)
+	sd	zero,%lo(mt.3157)(a5)
+	lui	a5,%hi(a.3156)
 	li	a4,61440
-	addi	a5,a5,%lo(.LANCHOR0)
 	addi	a4,a4,-1293
-	sd	a4,0(a5)
+	sd	a4,%lo(a.3156)(a5)
+	lui	a5,%hi(a.3156)
+	addi	a5,a5,%lo(a.3156)
 	li	a4,12288
 	addi	a4,a4,1534
 	sd	a4,8(a5)
 .L2:
-	blez	a1,.L23
-	addiw	a2,a1,-1
-	lui	t0,%hi(.LANCHOR0)
-	addi	t0,t0,%lo(.LANCHOR0)
-	lui	t2,%hi(count.3158)
-	slli	a2,a2,32
-	addi	sp,sp,-32
-	addi	a1,a0,1
-	srli	a2,a2,32
-	ld	a4,0(t0)
-	ld	a3,8(t0)
-	ld	a5,%lo(count.3158)(t2)
-	sd	s0,24(sp)
-	sd	s1,16(sp)
-	add	a2,a2,a1
-	lui	s1,%hi(r.3159)
-	li	a1,65536
-	li	s0,36864
-	li	t6,16384
-	sd	s2,8(sp)
-	li	t4,4
-	li	s2,0
-	addi	a1,a1,-1
-	addi	s0,s0,105
-	addi	t6,t6,1616
-	addi	t5,s1,%lo(r.3159)
-.L6:
-	and	a7,a4,a1
-	and	a6,a3,a1
-	srli	t3,a4,16
-	srli	t1,a3,16
-	bne	a5,t4,.L8
-	mul	a4,a7,s0
-	addi	a0,a0,1
-	li	a5,1
-	li	s2,1
-	mul	a3,a6,t6
-	add	a4,a4,t3
-	slli	a6,a4,16
-	add	a3,a3,t1
-	add	a6,a6,a3
-	sd	a6,%lo(r.3159)(s1)
-	sb	a6,-1(a0)
-	beq	a2,a0,.L27
-.L8:
-	add	a6,a5,t5
-	lbu	a6,0(a6)
-	addi	a0,a0,1
-	addi	a5,a5,1
-	sb	a6,-1(a0)
-	bne	a2,a0,.L6
-	sd	a5,%lo(count.3158)(t2)
-	bnez	s2,.L11
-.L1:
-	ld	s0,24(sp)
-	ld	s1,16(sp)
-	ld	s2,8(sp)
-	addi	sp,sp,32
+	sw	zero,-20(s0)
+	j	.L3
+.L5:
+	lui	a5,%hi(count.3158)
+	ld	a4,%lo(count.3158)(a5)
+	li	a5,4
+	bne	a4,a5,.L4
+	lui	a5,%hi(a.3156)
+	ld	a4,%lo(a.3156)(a5)
+	li	a5,65536
+	addi	a5,a5,-1
+	and	a4,a4,a5
+	li	a5,36864
+	addi	a5,a5,105
+	mul	a4,a4,a5
+	lui	a5,%hi(a.3156)
+	ld	a5,%lo(a.3156)(a5)
+	srli	a5,a5,16
+	add	a4,a4,a5
+	lui	a5,%hi(a.3156)
+	sd	a4,%lo(a.3156)(a5)
+	lui	a5,%hi(a.3156)
+	ld	a5,%lo(a.3156)(a5)
+	slli	a3,a5,16
+	lui	a5,%hi(a.3156)
+	addi	a5,a5,%lo(a.3156)
+	ld	a4,8(a5)
+	li	a5,65536
+	addi	a5,a5,-1
+	and	a4,a4,a5
+	li	a5,16384
+	addi	a5,a5,1616
+	mul	a4,a4,a5
+	lui	a5,%hi(a.3156)
+	addi	a5,a5,%lo(a.3156)
+	ld	a5,8(a5)
+	srli	a5,a5,16
+	add	a4,a4,a5
+	lui	a5,%hi(a.3156)
+	addi	a5,a5,%lo(a.3156)
+	sd	a4,8(a5)
+	lui	a5,%hi(a.3156)
+	addi	a5,a5,%lo(a.3156)
+	ld	a4,8(a5)
+	lui	a5,%hi(r.3159)
+	addi	a5,a5,%lo(r.3159)
+	add	a4,a3,a4
+	sd	a4,0(a5)
+	lui	a5,%hi(count.3158)
+	sd	zero,%lo(count.3158)(a5)
+.L4:
+	lui	a5,%hi(count.3158)
+	ld	a5,%lo(count.3158)(a5)
+	addi	a3,a5,1
+	lui	a4,%hi(count.3158)
+	sd	a3,%lo(count.3158)(a4)
+	lw	a4,-20(s0)
+	ld	a3,-40(s0)
+	add	a4,a3,a4
+	lui	a3,%hi(r.3159)
+	addi	a3,a3,%lo(r.3159)
+	add	a5,a5,a3
+	lbu	a5,0(a5)
+	sb	a5,0(a4)
+	lw	a5,-20(s0)
+	addiw	a5,a5,1
+	sw	a5,-20(s0)
+.L3:
+	lw	a4,-20(s0)
+	lw	a5,-44(s0)
+	sext.w	a4,a4
+	sext.w	a5,a5
+	blt	a4,a5,.L5
+	nop
+	ld	s0,40(sp)
+	addi	sp,sp,48
 	jr	ra
-.L27:
-	li	a5,1
-	sd	a5,%lo(count.3158)(t2)
-.L11:
-	sd	a4,0(t0)
-	sd	a3,8(t0)
-	j	.L1
-.L23:
-	ret
 	.size	fillrand, .-fillrand
-	.align	1
+	.section	.rodata
+	.align	3
+.LC0:
+	.string	"Error writing to output file: %s\n"
+	.text
+	.align	2
 	.globl	encfile
 	.type	encfile, @function
 encfile:
-	addi	sp,sp,-176
-	sd	s7,104(sp)
-	lui	s7,%hi(mt.3157)
-	ld	a5,%lo(mt.3157)(s7)
-	sd	s0,160(sp)
-	sd	s1,152(sp)
-	sd	s5,120(sp)
-	sd	ra,168(sp)
-	lui	s5,%hi(.LANCHOR0)
-	sd	s2,144(sp)
-	sd	s3,136(sp)
-	sd	s4,128(sp)
-	sd	s6,112(sp)
-	sd	s8,96(sp)
-	sd	s9,88(sp)
-	sd	s10,80(sp)
-	sd	s11,72(sp)
-	sd	a2,0(sp)
-	sd	a3,8(sp)
-	mv	s0,a0
-	mv	s1,a1
-	addi	s5,s5,%lo(.LANCHOR0)
-	bnez	a5,.L29
-	lui	s6,%hi(count.3158)
-	ld	a5,%lo(count.3158)(s6)
-	li	a2,4
-	ld	a4,8(s5)
-	ld	a3,0(s5)
-	beq	a5,a2,.L31
-.L83:
-	lui	s4,%hi(r.3159)
-	addi	s3,s4,%lo(r.3159)
-	add	a1,s3,a5
-	lbu	a1,0(a1)
-	addi	a5,a5,1
-	sb	a1,48(sp)
-	bne	a5,a2,.L82
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a2,1
-	li	a5,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,49(sp)
-.L35:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,50(sp)
-	bne	a5,a1,.L37
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,51(sp)
-.L39:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,52(sp)
-	bne	a5,a1,.L41
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,53(sp)
-.L43:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,54(sp)
-	bne	a5,a1,.L45
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,55(sp)
-.L47:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,56(sp)
-	bne	a5,a1,.L49
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,57(sp)
-.L51:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,58(sp)
-	bne	a5,a1,.L53
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,59(sp)
-.L55:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,60(sp)
-	bne	a5,a1,.L57
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,61(sp)
-.L59:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,62(sp)
-	bne	a5,a1,.L61
-	li	a5,65536
-	addi	a5,a5,-1
-	li	a1,36864
-	and	a2,a3,a5
-	addi	a1,a1,105
-	mul	a2,a2,a1
-	li	a1,1
-	sd	a1,%lo(count.3158)(s6)
-	li	a1,16384
-	and	a5,a4,a5
-	addi	a1,a1,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	mul	a5,a5,a1
-	add	a3,a2,a3
-	slli	a2,a3,16
-	add	a4,a5,a4
-	add	a5,a2,a4
-	sd	a5,%lo(r.3159)(s4)
-	sb	a5,63(sp)
-.L62:
-	sd	a3,0(s5)
-	sd	a4,8(s5)
-	j	.L63
-.L29:
-	lui	s6,%hi(count.3158)
-	li	a3,61440
-	li	a4,12288
-	ld	a5,%lo(count.3158)(s6)
-	addi	a3,a3,-1293
-	addi	a4,a4,1534
-	sd	zero,%lo(mt.3157)(s7)
-	sd	a3,0(s5)
-	sd	a4,8(s5)
-	li	a2,4
-	bne	a5,a2,.L83
-.L31:
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	lui	s4,%hi(r.3159)
-	li	a2,1
-	li	a5,1
-	addi	s3,s4,%lo(r.3159)
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,48(sp)
-	j	.L33
-.L82:
-	li	a2,0
-.L33:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,49(sp)
-	bne	a5,a1,.L35
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,50(sp)
-.L37:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,51(sp)
-	bne	a5,a1,.L39
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,52(sp)
-.L41:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,53(sp)
-	bne	a5,a1,.L43
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,54(sp)
-.L45:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,55(sp)
-	bne	a5,a1,.L47
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,56(sp)
-.L49:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,57(sp)
-	bne	a5,a1,.L51
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,58(sp)
-.L53:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,59(sp)
-	bne	a5,a1,.L55
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,60(sp)
-.L57:
-	add	a1,s3,a5
-	lbu	a0,0(a1)
-	addi	a5,a5,1
-	li	a1,4
-	sb	a0,61(sp)
-	bne	a5,a1,.L59
-	li	a5,65536
-	addi	a5,a5,-1
-	and	a0,a3,a5
-	and	a1,a4,a5
-	li	a5,36864
-	addi	a5,a5,105
-	li	a6,16384
-	mul	a0,a0,a5
-	addi	a6,a6,1616
-	srli	a3,a3,16
-	srli	a4,a4,16
-	li	a5,1
-	li	a2,1
-	mul	a1,a1,a6
-	add	a3,a0,a3
-	slli	a0,a3,16
-	add	a4,a1,a4
-	add	a1,a0,a4
-	sd	a1,%lo(r.3159)(s4)
-	sb	a1,62(sp)
-.L61:
-	add	a1,s3,a5
-	lbu	a1,0(a1)
-	addi	a5,a5,1
-	sd	a5,%lo(count.3158)(s6)
-	sb	a1,63(sp)
-	bnez	a2,.L62
-.L63:
+	addi	sp,sp,-112
+	sd	ra,104(sp)
+	sd	s0,96(sp)
+	addi	s0,sp,112
+	sd	a0,-88(s0)
+	sd	a1,-96(s0)
+	sd	a2,-104(s0)
+	sd	a3,-112(s0)
+	sd	zero,-24(s0)
+	sd	zero,-32(s0)
+	addi	a5,s0,-64
+	li	a1,16
+	mv	a0,a5
+	call	fillrand
 	li	a2,2
 	li	a1,0
-	mv	a0,s0
+	ld	a0,-88(s0)
 	call	fseek
-	addi	a1,sp,24
-	mv	a0,s0
+	addi	a5,s0,-72
+	mv	a1,a5
+	ld	a0,-88(s0)
 	call	fgetpos
 	li	a2,0
 	li	a1,0
-	mv	a0,s0
+	ld	a0,-88(s0)
 	call	fseek
-	mv	a3,s1
+	addi	a5,s0,-64
+	ld	a3,-96(s0)
 	li	a2,16
 	li	a1,1
-	addi	a0,sp,48
+	mv	a0,a5
 	call	fwrite
-	ld	a5,%lo(mt.3157)(s7)
-	beqz	a5,.L64
-	li	a5,61440
-	addi	a5,a5,-1293
-	sd	a5,0(s5)
-	li	a5,12288
-	addi	a5,a5,1534
-	sd	zero,%lo(mt.3157)(s7)
-	sd	a5,8(s5)
-.L64:
-	ld	a5,%lo(count.3158)(s6)
-	li	a4,4
-	addi	a2,a5,1
-	bne	a5,a4,.L66
-	ld	a1,0(s5)
-	ld	a2,8(s5)
-	li	a5,65536
-	addi	a5,a5,-1
-	li	a4,36864
-	and	a3,a1,a5
-	addi	a4,a4,105
-	li	a6,16384
-	mul	a3,a3,a4
-	addi	a6,a6,1616
-	and	a4,a2,a5
-	srli	a0,a1,16
-	srli	a1,a2,16
-	li	a5,0
-	li	a2,1
-	mul	a4,a4,a6
-	add	a3,a3,a0
-	slli	a0,a3,16
-	sd	a3,0(s5)
-	add	a4,a4,a1
-	add	a3,a0,a4
-	sd	a4,8(s5)
-	sd	a3,%lo(r.3159)(s4)
-.L66:
-	add	s3,s3,a5
-	lbu	a4,0(s3)
-	ld	a5,24(sp)
-	sd	a2,%lo(count.3158)(s6)
-	andi	a4,a4,-16
-	andi	a5,a5,15
-	or	a5,a5,a4
-	sb	a5,32(sp)
-	li	s3,15
-	li	a4,0
-	li	s2,16
-	j	.L67
-.L70:
-	call	fread
-	mv	a4,a0
-	ld	a2,0(sp)
-	addi	a1,sp,48
-	addi	a0,sp,32
-	bgtu	s3,a4,.L68
-	lbu	ra,57(sp)
-	lbu	t0,32(sp)
-	lbu	s10,33(sp)
-	lbu	s9,34(sp)
-	lbu	s8,35(sp)
-	lbu	s7,36(sp)
-	lbu	t1,37(sp)
-	lbu	a7,38(sp)
-	lbu	a6,39(sp)
-	lbu	a3,40(sp)
-	lbu	a4,41(sp)
-	lbu	s3,56(sp)
-	lbu	s11,48(sp)
-	lbu	t6,49(sp)
-	lbu	t5,50(sp)
-	lbu	t4,51(sp)
-	lbu	t3,52(sp)
-	lbu	s6,53(sp)
-	lbu	s5,54(sp)
-	lbu	s4,55(sp)
-	lbu	t2,58(sp)
-	lbu	a5,42(sp)
-	xor	a4,a4,ra
-	xor	t0,t0,s11
-	xor	a3,a3,s3
-	xor	t6,s10,t6
-	xor	t5,s9,t5
-	xor	t4,s8,t4
-	xor	t3,s7,t3
-	xor	t1,t1,s6
-	xor	a7,a7,s5
-	xor	a6,a6,s4
-	xor	a5,a5,t2
-	sb	t0,32(sp)
-	sb	t6,33(sp)
-	sb	t5,34(sp)
-	sb	t4,35(sp)
-	sb	t3,36(sp)
-	sb	t1,37(sp)
-	sb	a7,38(sp)
-	sb	a6,39(sp)
-	sb	a3,40(sp)
-	sb	a4,41(sp)
-	sb	a5,42(sp)
-	lbu	a7,43(sp)
-	lbu	a6,44(sp)
-	lbu	a3,45(sp)
-	lbu	a4,46(sp)
-	lbu	a5,47(sp)
-	lbu	t6,59(sp)
-	lbu	t5,60(sp)
-	lbu	t4,61(sp)
-	lbu	t3,62(sp)
-	lbu	t1,63(sp)
-	xor	a3,a3,t4
-	xor	a4,a4,t3
-	xor	a7,a7,t6
-	xor	a6,a6,t5
-	xor	a5,a5,t1
-	sb	a4,46(sp)
-	sb	a7,43(sp)
-	sb	a6,44(sp)
-	sb	a3,45(sp)
-	sb	a5,47(sp)
-	call	encrypt
-	mv	a3,s1
-	li	a2,16
+	addi	a5,s0,-48
 	li	a1,1
-	addi	a0,sp,48
-	call	fwrite
-	li	a4,16
-	li	s3,16
-	bne	a0,a4,.L84
-.L67:
-	lhu	a5,16(s0)
-	sub	a0,s2,s3
-	addi	a6,sp,32
-	andi	a5,a5,32
-	mv	a2,s3
-	mv	a3,s0
-	li	a1,1
-	add	a0,a6,a0
-	beqz	a5,.L70
-.L68:
-	addi	a5,s3,-15
-	seqz	a5,a5
-	add	a4,a4,a5
-	beqz	a4,.L74
+	mv	a0,a5
+	call	fillrand
 	li	a5,15
-	addi	s0,sp,32
-	bgtu	a4,a5,.L73
-	li	a2,16
-	sub	a2,a2,a4
-	li	a1,0
-	add	a0,s0,a4
-	call	memset
-.L73:
-	ld	a4,32(sp)
-	ld	a5,48(sp)
-	ld	a3,56(sp)
-	ld	a2,0(sp)
-	xor	a4,a4,a5
-	ld	a5,40(sp)
-	addi	a1,sp,48
-	mv	a0,s0
-	xor	a5,a5,a3
-	sd	a5,40(sp)
-	sd	a4,32(sp)
+	sd	a5,-32(s0)
+	ld	a5,-72(s0)
+	slliw	a5,a5,24
+	sraiw	a5,a5,24
+	andi	a5,a5,15
+	slliw	a4,a5,24
+	sraiw	a4,a4,24
+	lbu	a5,-48(s0)
+	slliw	a5,a5,24
+	sraiw	a5,a5,24
+	andi	a5,a5,-16
+	slliw	a5,a5,24
+	sraiw	a5,a5,24
+	or	a5,a4,a5
+	slliw	a5,a5,24
+	sraiw	a5,a5,24
+	andi	a5,a5,0xff
+	sb	a5,-48(s0)
+	j	.L7
+.L14:
+	li	a4,16
+	ld	a5,-32(s0)
+	sub	a5,a4,a5
+	addi	a4,s0,-48
+	add	a5,a4,a5
+	ld	a3,-88(s0)
+	ld	a2,-32(s0)
+	li	a1,1
+	mv	a0,a5
+	call	fread
+	sd	a0,-24(s0)
+	ld	a4,-24(s0)
+	ld	a5,-32(s0)
+	bltu	a4,a5,.L22
+	sd	zero,-24(s0)
+	j	.L10
+.L11:
+	ld	a5,-24(s0)
+	addi	a4,s0,-16
+	add	a5,a4,a5
+	lbu	a4,-32(a5)
+	ld	a5,-24(s0)
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	lbu	a5,-48(a5)
+	xor	a5,a4,a5
+	andi	a4,a5,0xff
+	ld	a5,-24(s0)
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	sb	a4,-32(a5)
+	ld	a5,-24(s0)
+	addi	a5,a5,1
+	sd	a5,-24(s0)
+.L10:
+	ld	a4,-24(s0)
+	li	a5,15
+	bleu	a4,a5,.L11
+	addi	a4,s0,-64
+	addi	a5,s0,-48
+	ld	a2,-104(s0)
+	mv	a1,a4
+	mv	a0,a5
 	call	encrypt
-	mv	a3,s1
+	addi	a5,s0,-64
+	ld	a3,-96(s0)
 	li	a2,16
 	li	a1,1
-	addi	a0,sp,48
+	mv	a0,a5
 	call	fwrite
+	mv	a4,a0
 	li	a5,16
-	bne	a0,a5,.L85
-.L74:
-	li	a0,0
-.L69:
-	ld	ra,168(sp)
-	ld	s0,160(sp)
-	ld	s1,152(sp)
-	ld	s2,144(sp)
-	ld	s3,136(sp)
-	ld	s4,128(sp)
-	ld	s5,120(sp)
-	ld	s6,112(sp)
-	ld	s7,104(sp)
-	ld	s8,96(sp)
-	ld	s9,88(sp)
-	ld	s10,80(sp)
-	ld	s11,72(sp)
-	addi	sp,sp,176
+	beq	a4,a5,.L12
+	ld	a1,-112(s0)
+	lui	a5,%hi(.LC0)
+	addi	a0,a5,%lo(.LC0)
+	call	printf
+	li	a5,-7
+	j	.L21
+.L12:
+	li	a5,16
+	sd	a5,-32(s0)
+.L7:
+	ld	a5,-88(s0)
+	lh	a5,16(a5)
+	slli	a5,a5,48
+	srli	a5,a5,48
+	sext.w	a5,a5
+	andi	a5,a5,32
+	sext.w	a5,a5
+	beqz	a5,.L14
+	j	.L9
+.L22:
+	nop
+.L9:
+	ld	a4,-32(s0)
+	li	a5,15
+	bne	a4,a5,.L15
+	ld	a5,-24(s0)
+	addi	a5,a5,1
+	sd	a5,-24(s0)
+.L15:
+	ld	a5,-24(s0)
+	beqz	a5,.L16
+	j	.L17
+.L18:
+	ld	a5,-24(s0)
+	addi	a4,a5,1
+	sd	a4,-24(s0)
+	addi	a4,s0,-16
+	add	a5,a4,a5
+	sb	zero,-32(a5)
+.L17:
+	ld	a4,-24(s0)
+	li	a5,15
+	bleu	a4,a5,.L18
+	sd	zero,-24(s0)
+	j	.L19
+.L20:
+	ld	a5,-24(s0)
+	addi	a4,s0,-16
+	add	a5,a4,a5
+	lbu	a4,-32(a5)
+	ld	a5,-24(s0)
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	lbu	a5,-48(a5)
+	xor	a5,a4,a5
+	andi	a4,a5,0xff
+	ld	a5,-24(s0)
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	sb	a4,-32(a5)
+	ld	a5,-24(s0)
+	addi	a5,a5,1
+	sd	a5,-24(s0)
+.L19:
+	ld	a4,-24(s0)
+	li	a5,15
+	bleu	a4,a5,.L20
+	addi	a4,s0,-64
+	addi	a5,s0,-48
+	ld	a2,-104(s0)
+	mv	a1,a4
+	mv	a0,a5
+	call	encrypt
+	addi	a5,s0,-64
+	ld	a3,-96(s0)
+	li	a2,16
+	li	a1,1
+	mv	a0,a5
+	call	fwrite
+	mv	a4,a0
+	li	a5,16
+	beq	a4,a5,.L16
+	ld	a1,-112(s0)
+	lui	a5,%hi(.LC0)
+	addi	a0,a5,%lo(.LC0)
+	call	printf
+	li	a5,-8
+	j	.L21
+.L16:
+	li	a5,0
+.L21:
+	mv	a0,a5
+	ld	ra,104(sp)
+	ld	s0,96(sp)
+	addi	sp,sp,112
 	jr	ra
-.L84:
-	ld	a1,8(sp)
-	lui	a0,%hi(.LC0)
-	addi	a0,a0,%lo(.LC0)
-	call	printf
-	li	a0,-7
-	j	.L69
-.L85:
-	ld	a1,8(sp)
-	lui	a0,%hi(.LC0)
-	addi	a0,a0,%lo(.LC0)
-	call	printf
-	li	a0,-8
-	j	.L69
 	.size	encfile, .-encfile
-	.align	1
+	.section	.rodata
+	.align	3
+.LC1:
+	.string	"Error reading from input file: %s\n"
+	.align	3
+.LC2:
+	.string	"\nThe input file is corrupt"
+	.text
+	.align	2
 	.globl	decfile
 	.type	decfile, @function
 decfile:
-	addi	sp,sp,-176
-	sd	s0,160(sp)
-	sd	s2,144(sp)
-	sd	s3,136(sp)
-	sd	s4,128(sp)
-	mv	s2,a0
-	mv	s4,a1
-	mv	s3,a2
-	mv	s0,a3
+	addi	sp,sp,-160
+	sd	ra,152(sp)
+	sd	s0,144(sp)
+	addi	s0,sp,160
+	sd	a0,-120(s0)
+	sd	a1,-128(s0)
+	sd	a2,-136(s0)
+	sd	a3,-144(s0)
+	sd	a4,-152(s0)
+	addi	a5,s0,-72
+	ld	a3,-120(s0)
 	li	a2,16
-	mv	a3,a0
 	li	a1,1
-	addi	a0,sp,16
-	sd	ra,168(sp)
-	sd	s1,152(sp)
-	sd	s5,120(sp)
-	sd	s6,112(sp)
-	sd	s7,104(sp)
-	sd	s8,96(sp)
-	sd	s9,88(sp)
-	sd	s10,80(sp)
-	sd	s11,72(sp)
-	sd	a4,0(sp)
+	mv	a0,a5
 	call	fread
+	mv	a4,a0
 	li	a5,16
-	bne	a0,a5,.L96
-	mv	a3,s2
-	li	a2,16
-	li	a1,1
-	addi	a0,sp,32
-	call	fread
-	andi	a0,a0,-17
-	sext.w	s5,a0
-	beqz	s5,.L89
-	lui	a0,%hi(.LC2)
-	addi	a0,a0,%lo(.LC2)
+	beq	a4,a5,.L24
+	ld	a1,-144(s0)
+	lui	a5,%hi(.LC1)
+	addi	a0,a5,%lo(.LC1)
 	call	printf
-	li	s5,-10
-.L88:
-	ld	ra,168(sp)
-	ld	s0,160(sp)
-	mv	a0,s5
-	ld	s1,152(sp)
-	ld	s2,144(sp)
-	ld	s3,136(sp)
-	ld	s4,128(sp)
-	ld	s5,120(sp)
-	ld	s6,112(sp)
-	ld	s7,104(sp)
-	ld	s8,96(sp)
-	ld	s9,88(sp)
-	ld	s10,80(sp)
-	ld	s11,72(sp)
-	addi	sp,sp,176
-	jr	ra
-.L89:
-	mv	a2,s3
-	addi	a1,sp,48
-	addi	a0,sp,32
-	call	decrypt
-	ld	a5,48(sp)
-	ld	a4,16(sp)
-	ld	a3,56(sp)
-	li	s6,15
-	xor	a5,a5,a4
-	ld	a4,24(sp)
-	sd	a5,48(sp)
-	andi	a5,a5,0xff
-	xor	a4,a4,a3
-	sd	a4,56(sp)
-	sd	a5,8(sp)
-	addi	s0,sp,32
-	addi	s1,sp,16
-	j	.L92
-.L98:
-	call	fwrite
-	mv	a2,s3
-	addi	a1,sp,48
-	bne	s6,a0,.L97
-	mv	a0,s1
-	call	decrypt
-	lbu	t4,48(sp)
-	lbu	s6,5(s0)
-	lbu	s11,0(s0)
-	lbu	s10,49(sp)
-	lbu	t3,1(s0)
-	lbu	s9,50(sp)
-	lbu	t1,2(s0)
-	lbu	s8,51(sp)
-	lbu	a7,3(s0)
-	lbu	s7,52(sp)
-	lbu	a6,4(s0)
-	lbu	a0,53(sp)
-	lbu	a1,54(sp)
-	lbu	ra,6(s0)
-	lbu	a2,55(sp)
-	lbu	t2,7(s0)
-	lbu	a3,56(sp)
-	lbu	t0,8(s0)
-	lbu	a4,57(sp)
-	lbu	t6,9(s0)
-	lbu	t5,10(s0)
-	lbu	a5,58(sp)
-	xor	a0,a0,s6
-	xor	t4,t4,s11
-	xor	t3,s10,t3
-	xor	t1,s9,t1
-	xor	a7,s8,a7
-	xor	a6,s7,a6
-	xor	a1,a1,ra
-	xor	a2,a2,t2
-	xor	a3,a3,t0
-	xor	a4,a4,t6
-	sb	t4,48(sp)
-	sb	t3,49(sp)
-	sb	t1,50(sp)
-	sb	a7,51(sp)
-	sb	a6,52(sp)
-	sb	a0,53(sp)
-	sb	a1,54(sp)
-	sb	a2,55(sp)
-	sb	a3,56(sp)
-	sb	a4,57(sp)
-	xor	a5,a5,t5
-	sb	a5,58(sp)
-	lbu	a1,59(sp)
-	lbu	t4,11(s0)
-	lbu	a2,60(sp)
-	lbu	t3,12(s0)
-	lbu	a3,61(sp)
-	lbu	t1,13(s0)
-	lbu	a4,62(sp)
-	lbu	a7,14(s0)
-	lbu	a5,63(sp)
-	lbu	a6,15(s0)
-	mv	a0,s0
-	xor	a1,a1,t4
-	xor	a2,a2,t3
-	xor	a3,a3,t1
-	xor	a4,a4,a7
-	xor	a5,a5,a6
-	mv	s0,s1
-	sb	a1,59(sp)
-	sb	a2,60(sp)
-	sb	a3,61(sp)
-	sb	a4,62(sp)
-	sb	a5,63(sp)
-	li	s6,16
-	mv	s1,a0
-.L92:
-	mv	a3,s2
+	li	a5,9
+	j	.L36
+.L24:
+	addi	a5,s0,-88
+	ld	a3,-120(s0)
 	li	a2,16
 	li	a1,1
-	mv	a0,s1
+	mv	a0,a5
 	call	fread
-	sext.w	a5,a0
-	addi	a4,sp,48
-	sub	a0,a5,s6
-	add	a0,a4,a0
-	li	a4,16
-	mv	a3,s4
-	mv	a2,s6
-	li	a1,1
-	beq	a5,a4,.L98
-	lw	a5,8(sp)
-	addi	s6,s6,-15
-	snez	s0,s6
+	mv	a5,a0
+	sw	a5,-36(s0)
+	lw	a5,-36(s0)
+	sext.w	a5,a5
+	beqz	a5,.L26
+	lw	a5,-36(s0)
+	sext.w	a4,a5
+	li	a5,16
+	beq	a4,a5,.L26
+	lui	a5,%hi(.LC2)
+	addi	a0,a5,%lo(.LC2)
+	call	printf
+	li	a5,-10
+	j	.L36
+.L26:
+	addi	a4,s0,-104
+	addi	a5,s0,-88
+	ld	a2,-136(s0)
+	mv	a1,a4
+	mv	a0,a5
+	call	decrypt
+	sw	zero,-36(s0)
+	j	.L27
+.L28:
+	lw	a5,-36(s0)
+	addi	a4,s0,-16
+	add	a5,a4,a5
+	lbu	a4,-88(a5)
+	lw	a5,-36(s0)
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	lbu	a5,-56(a5)
+	xor	a5,a4,a5
+	andi	a4,a5,0xff
+	lw	a5,-36(s0)
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	sb	a4,-88(a5)
+	lw	a5,-36(s0)
+	addiw	a5,a5,1
+	sw	a5,-36(s0)
+.L27:
+	lw	a5,-36(s0)
+	sext.w	a4,a5
+	li	a5,15
+	ble	a4,a5,.L28
+	lbu	a5,-104(s0)
+	sext.w	a5,a5
 	andi	a5,a5,15
-	add	s0,s0,a5
-	seqz	s6,s6
-	beqz	s0,.L88
-	addi	a5,sp,48
-	mv	a2,s0
+	sw	a5,-44(s0)
+	li	a5,15
+	sw	a5,-40(s0)
+	addi	a5,s0,-72
+	sd	a5,-24(s0)
+	addi	a5,s0,-88
+	sd	a5,-32(s0)
+.L34:
+	ld	a3,-120(s0)
+	li	a2,16
 	li	a1,1
-	add	a0,a5,s6
+	ld	a0,-24(s0)
+	call	fread
+	mv	a5,a0
+	sw	a5,-36(s0)
+	lw	a5,-36(s0)
+	sext.w	a4,a5
+	li	a5,16
+	bne	a4,a5,.L38
+	lw	a5,-40(s0)
+	li	a4,16
+	sub	a5,a4,a5
+	addi	a4,s0,-104
+	add	a5,a4,a5
+	lw	a4,-40(s0)
+	ld	a3,-128(s0)
+	mv	a2,a4
+	li	a1,1
+	mv	a0,a5
 	call	fwrite
-	beq	s0,a0,.L88
-	ld	a1,0(sp)
-	lui	a0,%hi(.LC0)
-	addi	a0,a0,%lo(.LC0)
+	mv	a4,a0
+	lw	a5,-40(s0)
+	beq	a4,a5,.L31
+	ld	a1,-152(s0)
+	lui	a5,%hi(.LC0)
+	addi	a0,a5,%lo(.LC0)
 	call	printf
-	li	s5,-12
-	j	.L88
-.L96:
-	lui	a0,%hi(.LC1)
-	mv	a1,s0
-	addi	a0,a0,%lo(.LC1)
+	li	a5,-11
+	j	.L36
+.L31:
+	addi	a5,s0,-104
+	ld	a2,-136(s0)
+	mv	a1,a5
+	ld	a0,-24(s0)
+	call	decrypt
+	sw	zero,-36(s0)
+	j	.L32
+.L33:
+	lw	a5,-36(s0)
+	addi	a4,s0,-16
+	add	a5,a4,a5
+	lbu	a4,-88(a5)
+	lw	a5,-36(s0)
+	ld	a3,-32(s0)
+	add	a5,a3,a5
+	lbu	a5,0(a5)
+	xor	a5,a4,a5
+	andi	a4,a5,0xff
+	lw	a5,-36(s0)
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	sb	a4,-88(a5)
+	lw	a5,-36(s0)
+	addiw	a5,a5,1
+	sw	a5,-36(s0)
+.L32:
+	lw	a5,-36(s0)
+	sext.w	a4,a5
+	li	a5,15
+	ble	a4,a5,.L33
+	lw	a5,-36(s0)
+	sw	a5,-40(s0)
+	ld	a5,-24(s0)
+	sd	a5,-56(s0)
+	ld	a5,-32(s0)
+	sd	a5,-24(s0)
+	ld	a5,-56(s0)
+	sd	a5,-32(s0)
+	j	.L34
+.L38:
+	nop
+	lw	a5,-40(s0)
+	sext.w	a4,a5
+	li	a5,15
+	sub	a5,a4,a5
+	seqz	a5,a5
+	andi	a5,a5,0xff
+	sw	a5,-40(s0)
+	li	a4,1
+	lw	a5,-40(s0)
+	subw	a5,a4,a5
+	sext.w	a5,a5
+	lw	a4,-44(s0)
+	addw	a5,a4,a5
+	sw	a5,-44(s0)
+	lw	a5,-44(s0)
+	sext.w	a5,a5
+	beqz	a5,.L35
+	lw	a5,-40(s0)
+	addi	a4,s0,-104
+	add	a5,a4,a5
+	lw	a4,-44(s0)
+	ld	a3,-128(s0)
+	mv	a2,a4
+	li	a1,1
+	mv	a0,a5
+	call	fwrite
+	mv	a4,a0
+	lw	a5,-44(s0)
+	beq	a4,a5,.L35
+	ld	a1,-152(s0)
+	lui	a5,%hi(.LC0)
+	addi	a0,a5,%lo(.LC0)
 	call	printf
-	li	s5,9
-	j	.L88
-.L97:
-	ld	a1,0(sp)
-	lui	a0,%hi(.LC0)
-	addi	a0,a0,%lo(.LC0)
-	call	printf
-	li	s5,-11
-	j	.L88
+	li	a5,-12
+	j	.L36
+.L35:
+	li	a5,0
+.L36:
+	mv	a0,a5
+	ld	ra,152(sp)
+	ld	s0,144(sp)
+	addi	sp,sp,160
+	jr	ra
 	.size	decfile, .-decfile
-	.section	.text.startup,"ax",@progbits
-	.align	1
+	.section	.rodata
+	.align	3
+.LC3:
+	.string	"usage: rijndael in_filename out_filename [d/e] key_in_hex"
+	.align	3
+.LC4:
+	.string	"key must be in hexadecimal notation"
+	.align	3
+.LC5:
+	.string	"The key value is too long"
+	.align	3
+.LC6:
+	.string	"The key length must be 32, 48 or 64 hexadecimal digits"
+	.align	3
+.LC7:
+	.string	"rb"
+	.align	3
+.LC8:
+	.string	"The input file: %s could not be opened\n"
+	.align	3
+.LC9:
+	.string	"wb"
+	.align	3
+.LC10:
+	.string	"The output file: %s could not be opened\n"
+	.text
+	.align	2
 	.globl	main
 	.type	main, @function
 main:
 	addi	sp,sp,-1168
 	sd	ra,1160(sp)
 	sd	s0,1152(sp)
-	sd	s1,1144(sp)
-	sd	s2,1136(sp)
-	sd	s3,1128(sp)
-	sd	s4,1120(sp)
-	sd	s5,1112(sp)
-	sd	s6,1104(sp)
-	sd	s7,1096(sp)
-	sd	s8,1088(sp)
+	addi	s0,sp,1168
+	mv	a5,a0
+	sd	a1,-1168(s0)
+	sw	a5,-1156(s0)
+	sd	zero,-24(s0)
+	sd	zero,-32(s0)
+	sw	zero,-44(s0)
+	sw	zero,-48(s0)
+	sw	zero,-56(s0)
+	sw	zero,-52(s0)
+	lw	a5,-1156(s0)
+	sext.w	a4,a5
 	li	a5,5
-	bne	a0,a5,.L105
-	ld	a5,24(a1)
-	mv	s5,a1
-	lbu	s0,0(a5)
+	bne	a4,a5,.L40
+	ld	a5,-1168(s0)
+	addi	a5,a5,24
+	ld	a5,0(a5)
+	lbu	a5,0(a5)
+	sb	a5,-57(s0)
 	call	__locale_ctype_ptr
-	li	a4,2
-	add	a0,a0,s0
-	lbu	a5,1(a0)
-	sext.w	s0,s0
-	andi	a5,a5,3
-	bne	a5,a4,.L102
-	addiw	s0,s0,-32
-.L102:
-	li	a5,68
-	bne	s0,a5,.L133
-.L103:
-	ld	s8,32(s5)
-	li	s1,0
-	li	s7,0
-	li	s3,2
-	li	s2,9
-	li	s6,5
-	li	s4,64
-.L106:
-	lbu	s0,0(s8)
-	beqz	s0,.L134
-	call	__locale_ctype_ptr
-	add	a0,a0,s0
-	lbu	a5,1(a0)
-	addi	s8,s8,1
-	sext.w	s0,s0
-	andi	a5,a5,3
-	bne	a5,s3,.L107
-	addiw	s0,s0,-32
-.L107:
-	andi	a5,s0,0xff
-	addiw	a4,a5,-48
-	andi	a4,a4,0xff
-	bgtu	a4,s2,.L108
-	slliw	s1,s1,4
-	andi	s0,s0,255
-	addw	s0,s1,s0
-	addiw	s1,s0,-48
-.L109:
-	addiw	a5,s7,1
-	andi	a4,s7,1
-	sext.w	s7,a5
-	beqz	a4,.L111
-	sraiw	a5,a5,1
-	addiw	a5,a5,-1
-	addi	a4,sp,1088
+	mv	a4,a0
+	lbu	a5,-57(s0)
+	addi	a5,a5,1
 	add	a5,a4,a5
-	sb	s1,-1080(a5)
-.L111:
-	bne	s7,s4,.L106
-	lbu	a5,0(s8)
-	bnez	a5,.L123
-	li	s7,64
-.L116:
-	ld	a0,8(s5)
-	lui	a1,%hi(.LC7)
-	addi	a1,a1,%lo(.LC7)
-	call	fopen
-	mv	s2,a0
-	srai	s7,s7,1
-	beqz	a0,.L135
-	ld	a0,16(s5)
-	lui	a1,%hi(.LC9)
-	addi	a1,a1,%lo(.LC9)
-	call	fopen
-	mv	s1,a0
-	beqz	a0,.L136
-	ld	a5,24(s5)
-	lbu	s0,0(a5)
-	call	__locale_ctype_ptr
-	li	a4,2
-	add	a0,a0,s0
-	lbu	a5,1(a0)
-	sext.w	s0,s0
+	lbu	a5,0(a5)
+	sext.w	a5,a5
 	andi	a5,a5,3
-	beq	a5,a4,.L137
-.L120:
+	sext.w	a5,a5
+	mv	a4,a5
+	li	a5,2
+	bne	a4,a5,.L41
+	lbu	a5,-57(s0)
+	sext.w	a5,a5
+	addiw	a5,a5,-32
+	sext.w	a5,a5
+	j	.L42
+.L41:
+	lbu	a5,-57(s0)
+	sext.w	a5,a5
+.L42:
+	mv	a4,a5
+	li	a5,68
+	beq	a4,a5,.L43
+	ld	a5,-1168(s0)
+	addi	a5,a5,24
+	ld	a5,0(a5)
+	lbu	a5,0(a5)
+	sb	a5,-58(s0)
+	call	__locale_ctype_ptr
+	mv	a4,a0
+	lbu	a5,-58(s0)
+	addi	a5,a5,1
+	add	a5,a4,a5
+	lbu	a5,0(a5)
+	sext.w	a5,a5
+	andi	a5,a5,3
+	sext.w	a5,a5
+	mv	a4,a5
+	li	a5,2
+	bne	a4,a5,.L44
+	lbu	a5,-58(s0)
+	sext.w	a5,a5
+	addiw	a5,a5,-32
+	sext.w	a5,a5
+	j	.L45
+.L44:
+	lbu	a5,-58(s0)
+	sext.w	a5,a5
+.L45:
+	mv	a4,a5
 	li	a5,69
-	addi	a3,sp,40
-	beq	s0,a5,.L138
-	li	a2,2
-	mv	a1,s7
-	addi	a0,sp,8
+	beq	a4,a5,.L43
+.L40:
+	lui	a5,%hi(.LC3)
+	addi	a0,a5,%lo(.LC3)
+	call	puts
+	li	a5,-1
+	sw	a5,-52(s0)
+	j	.L46
+.L43:
+	ld	a5,-1168(s0)
+	ld	a5,32(a5)
+	sd	a5,-40(s0)
+	sw	zero,-44(s0)
+	j	.L47
+.L54:
+	ld	a5,-40(s0)
+	addi	a4,a5,1
+	sd	a4,-40(s0)
+	lbu	a5,0(a5)
+	sb	a5,-59(s0)
+	call	__locale_ctype_ptr
+	mv	a4,a0
+	lbu	a5,-59(s0)
+	addi	a5,a5,1
+	add	a5,a4,a5
+	lbu	a5,0(a5)
+	sext.w	a5,a5
+	andi	a5,a5,3
+	sext.w	a5,a5
+	mv	a4,a5
+	li	a5,2
+	bne	a4,a5,.L48
+	lbu	a5,-59(s0)
+	sext.w	a5,a5
+	addiw	a5,a5,-32
+	sext.w	a5,a5
+	j	.L49
+.L48:
+	lbu	a5,-59(s0)
+	sext.w	a5,a5
+.L49:
+	sb	a5,-60(s0)
+	lbu	a5,-60(s0)
+	andi	a4,a5,0xff
+	li	a5,47
+	bleu	a4,a5,.L50
+	lbu	a5,-60(s0)
+	andi	a4,a5,0xff
+	li	a5,57
+	bgtu	a4,a5,.L50
+	lw	a5,-48(s0)
+	slliw	a5,a5,4
+	sext.w	a4,a5
+	lbu	a5,-60(s0)
+	sext.w	a5,a5
+	addw	a5,a4,a5
+	sext.w	a5,a5
+	addiw	a5,a5,-48
+	sw	a5,-48(s0)
+	j	.L51
+.L50:
+	lbu	a5,-60(s0)
+	andi	a4,a5,0xff
+	li	a5,64
+	bleu	a4,a5,.L52
+	lbu	a5,-60(s0)
+	andi	a4,a5,0xff
+	li	a5,70
+	bgtu	a4,a5,.L52
+	lw	a5,-48(s0)
+	slliw	a5,a5,4
+	sext.w	a4,a5
+	lbu	a5,-60(s0)
+	sext.w	a5,a5
+	addw	a5,a4,a5
+	sext.w	a5,a5
+	addiw	a5,a5,-55
+	sw	a5,-48(s0)
+	j	.L51
+.L52:
+	lui	a5,%hi(.LC4)
+	addi	a0,a5,%lo(.LC4)
+	call	puts
+	li	a5,-2
+	sw	a5,-52(s0)
+	j	.L46
+.L51:
+	lw	a5,-44(s0)
+	addiw	a4,a5,1
+	sw	a4,-44(s0)
+	andi	a5,a5,1
+	sext.w	a5,a5
+	beqz	a5,.L47
+	lw	a5,-44(s0)
+	srliw	a4,a5,31
+	addw	a5,a4,a5
+	sraiw	a5,a5,1
+	sext.w	a5,a5
+	addiw	a5,a5,-1
+	sext.w	a5,a5
+	lw	a4,-48(s0)
+	andi	a4,a4,0xff
+	addi	a3,s0,-16
+	add	a5,a3,a5
+	sb	a4,-80(a5)
+.L47:
+	lw	a5,-44(s0)
+	sext.w	a4,a5
+	li	a5,63
+	bgt	a4,a5,.L53
+	ld	a5,-40(s0)
+	lbu	a5,0(a5)
+	bnez	a5,.L54
+.L53:
+	ld	a5,-40(s0)
+	lbu	a5,0(a5)
+	beqz	a5,.L55
+	lui	a5,%hi(.LC5)
+	addi	a0,a5,%lo(.LC5)
+	call	puts
+	li	a5,-3
+	sw	a5,-52(s0)
+	j	.L46
+.L55:
+	lw	a5,-44(s0)
+	sext.w	a4,a5
+	li	a5,31
+	ble	a4,a5,.L56
+	lw	a5,-44(s0)
+	andi	a5,a5,15
+	sext.w	a5,a5
+	beqz	a5,.L57
+.L56:
+	lui	a5,%hi(.LC6)
+	addi	a0,a5,%lo(.LC6)
+	call	puts
+	li	a5,-4
+	sw	a5,-52(s0)
+	j	.L46
+.L57:
+	lw	a5,-44(s0)
+	srliw	a4,a5,31
+	addw	a5,a4,a5
+	sraiw	a5,a5,1
+	sw	a5,-56(s0)
+	ld	a5,-1168(s0)
+	addi	a5,a5,8
+	ld	a4,0(a5)
+	lui	a5,%hi(.LC7)
+	addi	a1,a5,%lo(.LC7)
+	mv	a0,a4
+	call	fopen
+	sd	a0,-24(s0)
+	ld	a5,-24(s0)
+	bnez	a5,.L58
+	ld	a5,-1168(s0)
+	addi	a5,a5,8
+	ld	a5,0(a5)
+	mv	a1,a5
+	lui	a5,%hi(.LC8)
+	addi	a0,a5,%lo(.LC8)
+	call	printf
+	li	a5,-5
+	sw	a5,-52(s0)
+	j	.L46
+.L58:
+	ld	a5,-1168(s0)
+	addi	a5,a5,16
+	ld	a4,0(a5)
+	lui	a5,%hi(.LC9)
+	addi	a1,a5,%lo(.LC9)
+	mv	a0,a4
+	call	fopen
+	sd	a0,-32(s0)
+	ld	a5,-32(s0)
+	bnez	a5,.L59
+	ld	a5,-1168(s0)
+	addi	a5,a5,8
+	ld	a5,0(a5)
+	mv	a1,a5
+	lui	a5,%hi(.LC10)
+	addi	a0,a5,%lo(.LC10)
+	call	printf
+	li	a5,-6
+	sw	a5,-52(s0)
+	j	.L46
+.L59:
+	ld	a5,-1168(s0)
+	addi	a5,a5,24
+	ld	a5,0(a5)
+	lbu	a5,0(a5)
+	sb	a5,-61(s0)
+	call	__locale_ctype_ptr
+	mv	a4,a0
+	lbu	a5,-61(s0)
+	addi	a5,a5,1
+	add	a5,a4,a5
+	lbu	a5,0(a5)
+	sext.w	a5,a5
+	andi	a5,a5,3
+	sext.w	a5,a5
+	mv	a4,a5
+	li	a5,2
+	bne	a4,a5,.L60
+	lbu	a5,-61(s0)
+	sext.w	a5,a5
+	addiw	a5,a5,-32
+	sext.w	a5,a5
+	j	.L61
+.L60:
+	lbu	a5,-61(s0)
+	sext.w	a5,a5
+.L61:
+	mv	a4,a5
+	li	a5,69
+	bne	a4,a5,.L62
+	lw	a4,-56(s0)
+	addi	a3,s0,-1144
+	addi	a5,s0,-96
+	li	a2,1
+	mv	a1,a4
+	mv	a0,a5
 	call	set_key
-	ld	a4,16(s5)
-	ld	a3,8(s5)
-	addi	a2,sp,40
-	mv	a1,s1
-	mv	a0,s2
+	ld	a5,-1168(s0)
+	addi	a5,a5,8
+	ld	a4,0(a5)
+	addi	a5,s0,-1144
+	mv	a3,a4
+	mv	a2,a5
+	ld	a1,-32(s0)
+	ld	a0,-24(s0)
+	call	encfile
+	mv	a5,a0
+	sw	a5,-52(s0)
+	j	.L46
+.L62:
+	lw	a4,-56(s0)
+	addi	a3,s0,-1144
+	addi	a5,s0,-96
+	li	a2,2
+	mv	a1,a4
+	mv	a0,a5
+	call	set_key
+	ld	a5,-1168(s0)
+	addi	a5,a5,8
+	ld	a3,0(a5)
+	ld	a5,-1168(s0)
+	addi	a5,a5,16
+	ld	a4,0(a5)
+	addi	a5,s0,-1144
+	mv	a2,a5
+	ld	a1,-32(s0)
+	ld	a0,-24(s0)
 	call	decfile
-	mv	s0,a0
-.L122:
-	mv	a0,s1
+	mv	a5,a0
+	sw	a5,-52(s0)
+.L46:
+	ld	a5,-32(s0)
+	beqz	a5,.L63
+	ld	a0,-32(s0)
 	call	fclose
-.L119:
-	mv	a0,s2
+.L63:
+	ld	a5,-24(s0)
+	beqz	a5,.L64
+	ld	a0,-24(s0)
 	call	fclose
-.L130:
-	mv	a0,s0
+.L64:
+	lw	a5,-52(s0)
+	mv	a0,a5
 	ld	ra,1160(sp)
 	ld	s0,1152(sp)
-	ld	s1,1144(sp)
-	ld	s2,1136(sp)
-	ld	s3,1128(sp)
-	ld	s4,1120(sp)
-	ld	s5,1112(sp)
-	ld	s6,1104(sp)
-	ld	s7,1096(sp)
-	ld	s8,1088(sp)
 	addi	sp,sp,1168
 	jr	ra
-.L108:
-	addiw	a5,a5,-65
-	andi	a5,a5,0xff
-	bgtu	a5,s6,.L110
-	slliw	s1,s1,4
-	andi	s0,s0,255
-	addw	s0,s1,s0
-	addiw	s1,s0,-55
-	j	.L109
-.L134:
-	li	a5,31
-	ble	s7,a5,.L114
-	andi	a5,s7,15
-	beqz	a5,.L116
-.L114:
-	lui	a0,%hi(.LC6)
-	addi	a0,a0,%lo(.LC6)
-	call	puts
-	li	s0,-4
-	j	.L130
-.L133:
-	ld	a5,24(s5)
-	lbu	s0,0(a5)
-	call	__locale_ctype_ptr
-	li	a4,2
-	add	a0,a0,s0
-	lbu	a5,1(a0)
-	sext.w	s0,s0
-	andi	a5,a5,3
-	bne	a5,a4,.L104
-	addiw	s0,s0,-32
-.L104:
-	li	a5,69
-	beq	s0,a5,.L103
-.L105:
-	lui	a0,%hi(.LC3)
-	addi	a0,a0,%lo(.LC3)
-	call	puts
-	li	s0,-1
-	j	.L130
-.L137:
-	addiw	s0,s0,-32
-	j	.L120
-.L138:
-	li	a2,1
-	mv	a1,s7
-	addi	a0,sp,8
-	call	set_key
-	ld	a3,8(s5)
-	addi	a2,sp,40
-	mv	a1,s1
-	mv	a0,s2
-	call	encfile
-	mv	s0,a0
-	j	.L122
-.L110:
-	lui	a0,%hi(.LC4)
-	addi	a0,a0,%lo(.LC4)
-	call	puts
-	li	s0,-2
-	j	.L130
-.L123:
-	lui	a0,%hi(.LC5)
-	addi	a0,a0,%lo(.LC5)
-	call	puts
-	li	s0,-3
-	j	.L130
-.L136:
-	ld	a1,8(s5)
-	lui	a0,%hi(.LC10)
-	addi	a0,a0,%lo(.LC10)
-	call	printf
-	li	s0,-6
-	j	.L119
-.L135:
-	ld	a1,8(s5)
-	lui	a0,%hi(.LC8)
-	addi	a0,a0,%lo(.LC8)
-	call	printf
-	li	s0,-5
-	j	.L130
 	.size	main, .-main
-	.bss
-	.align	3
-	.set	.LANCHOR0,. + 0
-	.type	a.3156, @object
-	.size	a.3156, 16
-a.3156:
-	.zero	16
-	.section	.rodata.str1.8,"aMS",@progbits,1
-	.align	3
-.LC0:
-	.string	"Error writing to output file: %s\n"
-	.zero	6
-.LC1:
-	.string	"Error reading from input file: %s\n"
-	.zero	5
-.LC2:
-	.string	"\nThe input file is corrupt"
-	.zero	5
-.LC3:
-	.string	"usage: rijndael in_filename out_filename [d/e] key_in_hex"
-	.zero	6
-.LC4:
-	.string	"key must be in hexadecimal notation"
-	.zero	4
-.LC5:
-	.string	"The key value is too long"
-	.zero	6
-.LC6:
-	.string	"The key length must be 32, 48 or 64 hexadecimal digits"
-	.zero	1
-.LC7:
-	.string	"rb"
-	.zero	5
-.LC8:
-	.string	"The input file: %s could not be opened\n"
-.LC9:
-	.string	"wb"
-	.zero	5
-.LC10:
-	.string	"The output file: %s could not be opened\n"
-	.section	.sbss,"aw",@nobits
-	.align	3
-	.type	r.3159, @object
-	.size	r.3159, 4
-r.3159:
-	.zero	4
 	.section	.sdata,"aw",@progbits
+	.align	3
+	.type	mt.3157, @object
+	.size	mt.3157, 8
+mt.3157:
+	.dword	1
+	.local	a.3156
+	.comm	a.3156,16,8
 	.align	3
 	.type	count.3158, @object
 	.size	count.3158, 8
 count.3158:
 	.dword	4
-	.type	mt.3157, @object
-	.size	mt.3157, 8
-mt.3157:
-	.dword	1
+	.local	r.3159
+	.comm	r.3159,4,8
 	.ident	"GCC: (GNU) 7.2.0"
