@@ -34,7 +34,14 @@ def is_label(inst):
     return False
 
 def is_main(inst):
-    if inst.find('main:') != -1:
+    if (inst.find('main:') != -1): #or
+        # inst.find('fillrand:') != -1 or
+        # inst.find('encrypt:') != -1 or
+        # inst.find('decrypt:') != -1 or
+        # inst.find('set_key:') != -1 or
+        # inst.find('encfile:') != -1 or
+        # inst.find('decfile:') != -1 ):
+
         return True
     return False
 
@@ -49,9 +56,25 @@ def is_data_seg(inst):
         inst.find(".align") != -1 or
         inst.find(".section") != -1 or
         inst.find(".string") != -1 or
+        inst.find(".comm") != -1 or
         inst.find(".type") != -1):
         return True
 
+    return False
+
+def is_libc_fn(fn_name):
+    if (fn_name == "fseek" or 
+        fn_name == "fgetpos" or
+        fn_name == "fwrite" or
+        fn_name == "fread" or
+        fn_name == "printf" or
+        fn_name == "fclose" or
+        fn_name == "fopen" or
+        fn_name == "puts" or
+        fn_name == "__locale_ctype_ptr" or
+        fn_name == "fgetpos"):
+        return True
+            
     return False
 
 counter = 0
@@ -73,15 +96,24 @@ with open('../assembly_folder/' + sys.argv[1] + '.s','r') as fp:
         
         #call subroutine for shared library glibc etc
         if prev_inst.find("call")  != -1:
-            prev_inst = "\tcsrwi\t0xff,0\n" + prev_inst + "\tcsrwi\t0xff,1\n"
+            call,fn_name = prev_inst.split()
+            if  is_libc_fn(fn_name):
+                # print(prev_inst)
+                prev_inst = "\tcsrwi\t0xff,0\n" + prev_inst + "\tcsrwi\t0xff,1\n"
 
-        # adding chk instruction
-        if not is_data_seg(inst):
+        if not (is_data_seg(inst)):            
+            # adding chk instruction
             if is_label(prev_inst) or is_cfi(prev_inst):
                 if not (is_label(inst) and is_cfi(prev_inst)): 
                     if (prev_inst.find(".LC0") == -1):                        
                         prev_inst = write_inst(prev_inst,hex(chk_counter))
                         chk_counter = chk_counter + 1
+            
+            if (is_label(inst) and not(is_cfi(prev_inst) or is_data_seg(prev_inst))):
+                # print(prev_inst)
+                prev_inst =  prev_inst + '\tj\t' + inst[:-2] + '\n'
+
+
 
         # disable integrity checking (deassert csr)
         if inst.find("ret") != -1 or inst.find("jr") != -1:
@@ -93,7 +125,6 @@ with open('../assembly_folder/' + sys.argv[1] + '.s','r') as fp:
         #iterating
         prev_inst = inst
         counter = counter + 1
-
 
 with open('../assembly_folder/modified_'+ sys.argv[1] + '.s','w') as fp:
     fp.writelines(modified_stream)

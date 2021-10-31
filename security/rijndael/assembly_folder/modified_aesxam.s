@@ -1,62 +1,89 @@
 	.file	"aesxam.c"
 	.option nopic
+	.section	.rodata
+	.align	3
+.LC0:
+	.string	"hacked"
 	.text
+	.align	2
+	.globl	attacked
+	.type	attacked, @function
+attacked:
+	.word	0xbc3d977
+	addi	sp,sp,-16
+	sd	ra,8(sp)
+	sd	s0,0(sp)
+	addi	s0,sp,16
+	lui	a5,%hi(.LC0)
+	addi	a0,a5,%lo(.LC0)
+	csrwi	0xff,0
+	call	puts
+	csrwi	0xff,1
+	.word	0xdbe5977
+	nop
+	ld	ra,8(sp)
+	ld	s0,0(sp)
+	addi	sp,sp,16
+	csrwi	0xff,0
+	jr	ra
+	.size	attacked, .-attacked
 	.align	2
 	.globl	fillrand
 	.type	fillrand, @function
 fillrand:
-	.word	0xef02977
+	.word	0xed02977
 	addi	sp,sp,-48
 	sd	s0,40(sp)
 	addi	s0,sp,48
 	sd	a0,-40(s0)
 	mv	a5,a1
 	sw	a5,-44(s0)
-	lui	a5,%hi(mt.3157)
-	ld	a5,%lo(mt.3157)(a5)
-	beqz	a5,.L2
-	.word	0x88e6977
-	lui	a5,%hi(mt.3157)
-	sd	zero,%lo(mt.3157)(a5)
-	lui	a5,%hi(a.3156)
+	lui	a5,%hi(mt.3160)
+	ld	a5,%lo(mt.3160)(a5)
+	beqz	a5,.L3
+	.word	0x88c9977
+	lui	a5,%hi(mt.3160)
+	sd	zero,%lo(mt.3160)(a5)
+	lui	a5,%hi(a.3159)
 	li	a4,61440
 	addi	a4,a4,-1293
-	sd	a4,%lo(a.3156)(a5)
-	lui	a5,%hi(a.3156)
-	addi	a5,a5,%lo(a.3156)
+	sd	a4,%lo(a.3159)(a5)
+	lui	a5,%hi(a.3159)
+	addi	a5,a5,%lo(a.3159)
 	li	a4,12288
 	addi	a4,a4,1534
 	sd	a4,8(a5)
-.L2:
-	.word	0xd508977
-	sw	zero,-20(s0)
 	j	.L3
-.L5:
-	.word	0x2d45977
-	lui	a5,%hi(count.3158)
-	ld	a4,%lo(count.3158)(a5)
+.L3:
+	.word	0xd588977
+	sw	zero,-20(s0)
+	j	.L4
+.L6:
+	.word	0x2345977
+	lui	a5,%hi(count.3161)
+	ld	a4,%lo(count.3161)(a5)
 	li	a5,4
-	bne	a4,a5,.L4
-	.word	0x2ba5977
-	lui	a5,%hi(a.3156)
-	ld	a4,%lo(a.3156)(a5)
+	bne	a4,a5,.L5
+	.word	0x2b8a977
+	lui	a5,%hi(a.3159)
+	ld	a4,%lo(a.3159)(a5)
 	li	a5,65536
 	addi	a5,a5,-1
 	and	a4,a4,a5
 	li	a5,36864
 	addi	a5,a5,105
 	mul	a4,a4,a5
-	lui	a5,%hi(a.3156)
-	ld	a5,%lo(a.3156)(a5)
+	lui	a5,%hi(a.3159)
+	ld	a5,%lo(a.3159)(a5)
 	srli	a5,a5,16
 	add	a4,a4,a5
-	lui	a5,%hi(a.3156)
-	sd	a4,%lo(a.3156)(a5)
-	lui	a5,%hi(a.3156)
-	ld	a5,%lo(a.3156)(a5)
+	lui	a5,%hi(a.3159)
+	sd	a4,%lo(a.3159)(a5)
+	lui	a5,%hi(a.3159)
+	ld	a5,%lo(a.3159)(a5)
 	slli	a3,a5,16
-	lui	a5,%hi(a.3156)
-	addi	a5,a5,%lo(a.3156)
+	lui	a5,%hi(a.3159)
+	addi	a5,a5,%lo(a.3159)
 	ld	a4,8(a5)
 	li	a5,65536
 	addi	a5,a5,-1
@@ -64,48 +91,50 @@ fillrand:
 	li	a5,16384
 	addi	a5,a5,1616
 	mul	a4,a4,a5
-	lui	a5,%hi(a.3156)
-	addi	a5,a5,%lo(a.3156)
+	lui	a5,%hi(a.3159)
+	addi	a5,a5,%lo(a.3159)
 	ld	a5,8(a5)
 	srli	a5,a5,16
 	add	a4,a4,a5
-	lui	a5,%hi(a.3156)
-	addi	a5,a5,%lo(a.3156)
+	lui	a5,%hi(a.3159)
+	addi	a5,a5,%lo(a.3159)
 	sd	a4,8(a5)
-	lui	a5,%hi(a.3156)
-	addi	a5,a5,%lo(a.3156)
+	lui	a5,%hi(a.3159)
+	addi	a5,a5,%lo(a.3159)
 	ld	a4,8(a5)
-	lui	a5,%hi(r.3159)
-	addi	a5,a5,%lo(r.3159)
+	lui	a5,%hi(r.3162)
+	addi	a5,a5,%lo(r.3162)
 	add	a4,a3,a4
 	sd	a4,0(a5)
-	lui	a5,%hi(count.3158)
-	sd	zero,%lo(count.3158)(a5)
-.L4:
-	.word	0xd1db977
-	lui	a5,%hi(count.3158)
-	ld	a5,%lo(count.3158)(a5)
+	lui	a5,%hi(count.3161)
+	sd	zero,%lo(count.3161)(a5)
+	j	.L5
+.L5:
+	.word	0xd1f4977
+	lui	a5,%hi(count.3161)
+	ld	a5,%lo(count.3161)(a5)
 	addi	a3,a5,1
-	lui	a4,%hi(count.3158)
-	sd	a3,%lo(count.3158)(a4)
+	lui	a4,%hi(count.3161)
+	sd	a3,%lo(count.3161)(a4)
 	lw	a4,-20(s0)
 	ld	a3,-40(s0)
 	add	a4,a3,a4
-	lui	a3,%hi(r.3159)
-	addi	a3,a3,%lo(r.3159)
+	lui	a3,%hi(r.3162)
+	addi	a3,a3,%lo(r.3162)
 	add	a5,a5,a3
 	lbu	a5,0(a5)
 	sb	a5,0(a4)
 	lw	a5,-20(s0)
 	addiw	a5,a5,1
 	sw	a5,-20(s0)
-.L3:
-	.word	0x3d94977
+	j	.L4
+.L4:
+	.word	0x3994977
 	lw	a4,-20(s0)
 	lw	a5,-44(s0)
 	sext.w	a4,a4
 	sext.w	a5,a5
-	blt	a4,a5,.L5
+	blt	a4,a5,.L6
 	.word	0xeb67977
 	nop
 	ld	s0,40(sp)
@@ -115,14 +144,14 @@ fillrand:
 	.size	fillrand, .-fillrand
 	.section	.rodata
 	.align	3
-.LC0:
+.LC1:
 	.string	"Error writing to output file: %s\n"
 	.text
 	.align	2
 	.globl	encfile
 	.type	encfile, @function
 encfile:
-	.word	0xc9f3977
+	.word	0x97f0977
 	addi	sp,sp,-112
 	sd	ra,104(sp)
 	sd	s0,96(sp)
@@ -136,31 +165,29 @@ encfile:
 	addi	a5,s0,-64
 	li	a1,16
 	mv	a0,a5
-	csrwi	0xff,0
 	call	fillrand
-	csrwi	0xff,1
-	.word	0xee4b977
+	.word	0xef8b977
 	li	a2,2
 	li	a1,0
 	ld	a0,-88(s0)
 	csrwi	0xff,0
 	call	fseek
 	csrwi	0xff,1
-	.word	0xf1a8977
+	.word	0xf1e8977
 	addi	a5,s0,-72
 	mv	a1,a5
 	ld	a0,-88(s0)
 	csrwi	0xff,0
 	call	fgetpos
 	csrwi	0xff,1
-	.word	0xeaeb977
+	.word	0xea2b977
 	li	a2,0
 	li	a1,0
 	ld	a0,-88(s0)
 	csrwi	0xff,0
 	call	fseek
 	csrwi	0xff,1
-	.word	0xca08977
+	.word	0xca48977
 	addi	a5,s0,-64
 	ld	a3,-96(s0)
 	li	a2,16
@@ -169,13 +196,11 @@ encfile:
 	csrwi	0xff,0
 	call	fwrite
 	csrwi	0xff,1
-	.word	0x8b3977
+	.word	0x5730977
 	addi	a5,s0,-48
 	li	a1,1
 	mv	a0,a5
-	csrwi	0xff,0
 	call	fillrand
-	csrwi	0xff,1
 	.word	0xb89c977
 	li	a5,15
 	sd	a5,-32(s0)
@@ -196,9 +221,9 @@ encfile:
 	sraiw	a5,a5,24
 	andi	a5,a5,0xff
 	sb	a5,-48(s0)
-	j	.L7
-.L14:
-	.word	0x8af8977
+	j	.L8
+.L15:
+	.word	0x8ab8977
 	li	a4,16
 	ld	a5,-32(s0)
 	sub	a5,a4,a5
@@ -215,12 +240,12 @@ encfile:
 	sd	a0,-24(s0)
 	ld	a4,-24(s0)
 	ld	a5,-32(s0)
-	bltu	a4,a5,.L22
-	.word	0xce88977
+	bltu	a4,a5,.L23
+	.word	0xcf48977
 	sd	zero,-24(s0)
-	j	.L10
-.L11:
-	.word	0x70e4977
+	j	.L11
+.L12:
+	.word	0x70cb977
 	ld	a5,-24(s0)
 	addi	a4,s0,-16
 	add	a5,a4,a5
@@ -238,21 +263,22 @@ encfile:
 	ld	a5,-24(s0)
 	addi	a5,a5,1
 	sd	a5,-24(s0)
-.L10:
-	.word	0xc2e0977
+	j	.L11
+.L11:
+	.word	0xc0e0977
 	ld	a4,-24(s0)
 	li	a5,15
-	bleu	a4,a5,.L11
-	.word	0x2574977
+	bleu	a4,a5,.L12
+	.word	0x60f7977
 	addi	a4,s0,-64
 	addi	a5,s0,-48
 	ld	a2,-104(s0)
 	mv	a1,a4
 	mv	a0,a5
-	csrwi	0xff,0
+	lui	a5,%hi(.LC0)
+	addi	a0,a5,%lo(.LC0)
 	call	encrypt
-	csrwi	0xff,1
-	.word	0xe048977
+	.word	0xdfc8977
 	addi	a5,s0,-64
 	ld	a3,-96(s0)
 	li	a2,16
@@ -264,22 +290,23 @@ encfile:
 	.word	0x511977
 	mv	a4,a0
 	li	a5,16
-	beq	a4,a5,.L12
-	.word	0xd92a977
+	beq	a4,a5,.L13
+	.word	0xd12a977
 	ld	a1,-112(s0)
-	lui	a5,%hi(.LC0)
-	addi	a0,a5,%lo(.LC0)
+	lui	a5,%hi(.LC1)
+	addi	a0,a5,%lo(.LC1)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
-	.word	0xe16c977
+	.word	0xe26c977
 	li	a5,-7
-	j	.L21
-.L12:
-	.word	0xc844977
+	j	.L22
+.L13:
+	.word	0xc86b977
 	li	a5,16
 	sd	a5,-32(s0)
-.L7:
+	j	.L8
+.L8:
 	.word	0x80f3977
 	ld	a5,-88(s0)
 	lh	a5,16(a5)
@@ -288,45 +315,48 @@ encfile:
 	sext.w	a5,a5
 	andi	a5,a5,32
 	sext.w	a5,a5
-	beqz	a5,.L14
-	.word	0xaf977
-	j	.L9
-.L22:
-	.word	0x13977
+	beqz	a5,.L15
+	.word	0x16f977
+	j	.L10
+.L23:
+	.word	0x3c977
 	nop
-.L9:
-	.word	0xd4f0977
+	j	.L10
+.L10:
+	.word	0xd2f0977
 	ld	a4,-32(s0)
 	li	a5,15
-	bne	a4,a5,.L15
-	.word	0x8454977
+	bne	a4,a5,.L16
+	.word	0x847b977
 	ld	a5,-24(s0)
 	addi	a5,a5,1
 	sd	a5,-24(s0)
-.L15:
+	j	.L16
+.L16:
 	.word	0x5763977
 	ld	a5,-24(s0)
-	beqz	a5,.L16
-	.word	0x26f977
-	j	.L17
-.L18:
-	.word	0x5b3977
+	beqz	a5,.L17
+	.word	0x22f977
+	j	.L18
+.L19:
+	.word	0x59c977
 	ld	a5,-24(s0)
 	addi	a4,a5,1
 	sd	a4,-24(s0)
 	addi	a4,s0,-16
 	add	a5,a4,a5
 	sb	zero,-32(a5)
-.L17:
-	.word	0xcee0977
+	j	.L18
+.L18:
+	.word	0xc8e0977
 	ld	a4,-24(s0)
 	li	a5,15
-	bleu	a4,a5,.L18
-	.word	0xce88977
+	bleu	a4,a5,.L19
+	.word	0xcf48977
 	sd	zero,-24(s0)
-	j	.L19
-.L20:
-	.word	0x70e4977
+	j	.L20
+.L21:
+	.word	0x70cb977
 	ld	a5,-24(s0)
 	addi	a4,s0,-16
 	add	a5,a4,a5
@@ -344,21 +374,22 @@ encfile:
 	ld	a5,-24(s0)
 	addi	a5,a5,1
 	sd	a5,-24(s0)
-.L19:
-	.word	0xc2e0977
+	j	.L20
+.L20:
+	.word	0xc0e0977
 	ld	a4,-24(s0)
 	li	a5,15
-	bleu	a4,a5,.L20
-	.word	0x4da4977
+	bleu	a4,a5,.L21
+	.word	0x1be7977
 	addi	a4,s0,-64
 	addi	a5,s0,-48
 	ld	a2,-104(s0)
 	mv	a1,a4
 	mv	a0,a5
-	csrwi	0xff,0
+	lui	a5,%hi(.LC0)
+	addi	a0,a5,%lo(.LC0)
 	call	encrypt
-	csrwi	0xff,1
-	.word	0xf888977
+	.word	0xf8c8977
 	addi	a5,s0,-64
 	ld	a3,-96(s0)
 	li	a2,16
@@ -370,21 +401,22 @@ encfile:
 	.word	0x511977
 	mv	a4,a0
 	li	a5,16
-	beq	a4,a5,.L16
-	.word	0xe16a977
+	beq	a4,a5,.L17
+	.word	0xe82a977
 	ld	a1,-112(s0)
-	lui	a5,%hi(.LC0)
-	addi	a0,a5,%lo(.LC0)
+	lui	a5,%hi(.LC1)
+	addi	a0,a5,%lo(.LC1)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
-	.word	0xf8bc977
+	.word	0xf97c977
 	li	a5,-8
-	j	.L21
-.L16:
-	.word	0x793977
+	j	.L22
+.L17:
+	.word	0x7bc977
 	li	a5,0
-.L21:
+	j	.L22
+.L22:
 	.word	0x58e2977
 	mv	a0,a5
 	ld	ra,104(sp)
@@ -395,17 +427,17 @@ encfile:
 	.size	encfile, .-encfile
 	.section	.rodata
 	.align	3
-.LC1:
+.LC2:
 	.string	"Error reading from input file: %s\n"
 	.align	3
-.LC2:
+.LC3:
 	.string	"\nThe input file is corrupt"
 	.text
 	.align	2
 	.globl	decfile
 	.type	decfile, @function
 decfile:
-	.word	0xc3af977
+	.word	0xc02f977
 	addi	sp,sp,-160
 	sd	ra,152(sp)
 	sd	s0,144(sp)
@@ -426,19 +458,19 @@ decfile:
 	.word	0x511977
 	mv	a4,a0
 	li	a5,16
-	beq	a4,a5,.L24
-	.word	0xf22a977
+	beq	a4,a5,.L25
+	.word	0xf92a977
 	ld	a1,-144(s0)
-	lui	a5,%hi(.LC1)
-	addi	a0,a5,%lo(.LC1)
+	lui	a5,%hi(.LC2)
+	addi	a0,a5,%lo(.LC2)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
 	.word	0x33ec977
 	li	a5,9
-	j	.L36
-.L24:
-	.word	0xfbb8977
+	j	.L37
+.L25:
+	.word	0x9428977
 	addi	a5,s0,-88
 	ld	a3,-120(s0)
 	li	a2,16
@@ -452,36 +484,34 @@ decfile:
 	sw	a5,-36(s0)
 	lw	a5,-36(s0)
 	sext.w	a5,a5
-	beqz	a5,.L26
+	beqz	a5,.L27
 	.word	0x5d5c977
 	lw	a5,-36(s0)
 	sext.w	a4,a5
 	li	a5,16
-	beq	a4,a5,.L26
-	.word	0x376d977
-	lui	a5,%hi(.LC2)
-	addi	a0,a5,%lo(.LC2)
+	beq	a4,a5,.L27
+	.word	0xbd6d977
+	lui	a5,%hi(.LC3)
+	addi	a0,a5,%lo(.LC3)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
 	.word	0xd5dc977
 	li	a5,-10
-	j	.L36
-.L26:
-	.word	0x23b4977
+	j	.L37
+.L27:
+	.word	0x7ab7977
 	addi	a4,s0,-104
 	addi	a5,s0,-88
 	ld	a2,-136(s0)
 	mv	a1,a4
 	mv	a0,a5
-	csrwi	0xff,0
 	call	decrypt
-	csrwi	0xff,1
-	.word	0xd688977
+	.word	0xd748977
 	sw	zero,-36(s0)
-	j	.L27
-.L28:
-	.word	0x6dec977
+	j	.L28
+.L29:
+	.word	0x6dc3977
 	lw	a5,-36(s0)
 	addi	a4,s0,-16
 	add	a5,a4,a5
@@ -499,13 +529,14 @@ decfile:
 	lw	a5,-36(s0)
 	addiw	a5,a5,1
 	sw	a5,-36(s0)
-.L27:
-	.word	0x743c977
+	j	.L28
+.L28:
+	.word	0x723c977
 	lw	a5,-36(s0)
 	sext.w	a4,a5
 	li	a5,15
-	ble	a4,a5,.L28
-	.word	0xca9c977
+	ble	a4,a5,.L29
+	.word	0xcab3977
 	lbu	a5,-104(s0)
 	sext.w	a5,a5
 	andi	a5,a5,15
@@ -516,8 +547,9 @@ decfile:
 	sd	a5,-24(s0)
 	addi	a5,s0,-88
 	sd	a5,-32(s0)
-.L34:
-	.word	0x35ac977
+	j	.L35
+.L35:
+	.word	0x352c977
 	ld	a3,-120(s0)
 	li	a2,16
 	li	a1,1
@@ -525,14 +557,14 @@ decfile:
 	csrwi	0xff,0
 	call	fread
 	csrwi	0xff,1
-	.word	0x8e1d977
+	.word	0x8c1d977
 	mv	a5,a0
 	sw	a5,-36(s0)
 	lw	a5,-36(s0)
 	sext.w	a4,a5
 	li	a5,16
-	bne	a4,a5,.L38
-	.word	0xe0cc977
+	bne	a4,a5,.L39
+	.word	0xe04c977
 	lw	a5,-40(s0)
 	li	a4,16
 	sub	a5,a4,a5
@@ -549,31 +581,29 @@ decfile:
 	.word	0xd985977
 	mv	a4,a0
 	lw	a5,-40(s0)
-	beq	a4,a5,.L31
-	.word	0xa6ba977
+	beq	a4,a5,.L32
+	.word	0xafba977
 	ld	a1,-152(s0)
-	lui	a5,%hi(.LC0)
-	addi	a0,a5,%lo(.LC0)
+	lui	a5,%hi(.LC1)
+	addi	a0,a5,%lo(.LC1)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
 	.word	0xefac977
 	li	a5,-11
-	j	.L36
-.L31:
-	.word	0x6b0977
+	j	.L37
+.L32:
+	.word	0x53b3977
 	addi	a5,s0,-104
 	ld	a2,-136(s0)
 	mv	a1,a5
 	ld	a0,-24(s0)
-	csrwi	0xff,0
 	call	decrypt
-	csrwi	0xff,1
-	.word	0xd688977
+	.word	0xd748977
 	sw	zero,-36(s0)
-	j	.L32
-.L33:
-	.word	0xa07c977
+	j	.L33
+.L34:
+	.word	0xa053977
 	lw	a5,-36(s0)
 	addi	a4,s0,-16
 	add	a5,a4,a5
@@ -591,13 +621,14 @@ decfile:
 	lw	a5,-36(s0)
 	addiw	a5,a5,1
 	sw	a5,-36(s0)
-.L32:
-	.word	0x743c977
+	j	.L33
+.L33:
+	.word	0x723c977
 	lw	a5,-36(s0)
 	sext.w	a4,a5
 	li	a5,15
-	ble	a4,a5,.L33
-	.word	0x1730977
+	ble	a4,a5,.L34
+	.word	0x1770977
 	lw	a5,-36(s0)
 	sw	a5,-40(s0)
 	ld	a5,-24(s0)
@@ -606,8 +637,8 @@ decfile:
 	sd	a5,-24(s0)
 	ld	a5,-56(s0)
 	sd	a5,-32(s0)
-	j	.L34
-.L38:
+	j	.L35
+.L39:
 	.word	0x492f977
 	nop
 	lw	a5,-40(s0)
@@ -626,8 +657,8 @@ decfile:
 	sw	a5,-44(s0)
 	lw	a5,-44(s0)
 	sext.w	a5,a5
-	beqz	a5,.L35
-	.word	0xb79b977
+	beqz	a5,.L36
+	.word	0xb7db977
 	lw	a5,-40(s0)
 	addi	a4,s0,-104
 	add	a5,a4,a5
@@ -642,21 +673,22 @@ decfile:
 	.word	0xd945977
 	mv	a4,a0
 	lw	a5,-44(s0)
-	beq	a4,a5,.L35
-	.word	0x9cfa977
+	beq	a4,a5,.L36
+	.word	0x95ba977
 	ld	a1,-152(s0)
-	lui	a5,%hi(.LC0)
-	addi	a0,a5,%lo(.LC0)
+	lui	a5,%hi(.LC1)
+	addi	a0,a5,%lo(.LC1)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
-	.word	0xf87c977
+	.word	0xf9bc977
 	li	a5,-12
-	j	.L36
-.L35:
-	.word	0x793977
-	li	a5,0
+	j	.L37
 .L36:
+	.word	0x7bc977
+	li	a5,0
+	j	.L37
+.L37:
 	.word	0x55e2977
 	mv	a0,a5
 	ld	ra,152(sp)
@@ -667,28 +699,28 @@ decfile:
 	.size	decfile, .-decfile
 	.section	.rodata
 	.align	3
-.LC3:
+.LC4:
 	.string	"usage: rijndael in_filename out_filename [d/e] key_in_hex"
 	.align	3
-.LC4:
+.LC5:
 	.string	"key must be in hexadecimal notation"
 	.align	3
-.LC5:
+.LC6:
 	.string	"The key value is too long"
 	.align	3
-.LC6:
+.LC7:
 	.string	"The key length must be 32, 48 or 64 hexadecimal digits"
 	.align	3
-.LC7:
+.LC8:
 	.string	"rb"
 	.align	3
-.LC8:
+.LC9:
 	.string	"The input file: %s could not be opened\n"
 	.align	3
-.LC9:
+.LC10:
 	.string	"wb"
 	.align	3
-.LC10:
+.LC11:
 	.string	"The output file: %s could not be opened\n"
 	.text
 	.align	2
@@ -696,7 +728,7 @@ decfile:
 	.type	main, @function
 main:
 	csrwi	0xff,1
-	.word	0xf04a977
+	.word	0xf44a977
 	addi	sp,sp,-1168
 	sd	ra,1160(sp)
 	sd	s0,1152(sp)
@@ -713,8 +745,8 @@ main:
 	lw	a5,-1156(s0)
 	sext.w	a4,a5
 	li	a5,5
-	bne	a4,a5,.L40
-	.word	0x8c68977
+	bne	a4,a5,.L41
+	.word	0x8ce8977
 	ld	a5,-1168(s0)
 	addi	a5,a5,24
 	ld	a5,0(a5)
@@ -734,23 +766,24 @@ main:
 	sext.w	a5,a5
 	mv	a4,a5
 	li	a5,2
-	bne	a4,a5,.L41
-	.word	0xc304977
+	bne	a4,a5,.L42
+	.word	0xc344977
 	lbu	a5,-57(s0)
 	sext.w	a5,a5
 	addiw	a5,a5,-32
 	sext.w	a5,a5
-	j	.L42
-.L41:
-	.word	0x3c6b977
+	j	.L43
+.L42:
+	.word	0x3c44977
 	lbu	a5,-57(s0)
 	sext.w	a5,a5
-.L42:
-	.word	0x8453977
+	j	.L43
+.L43:
+	.word	0x8253977
 	mv	a4,a5
 	li	a5,68
-	beq	a4,a5,.L43
-	.word	0x8468977
+	beq	a4,a5,.L44
+	.word	0x87a8977
 	ld	a5,-1168(s0)
 	addi	a5,a5,24
 	ld	a5,0(a5)
@@ -770,42 +803,43 @@ main:
 	sext.w	a5,a5
 	mv	a4,a5
 	li	a5,2
-	bne	a4,a5,.L44
-	.word	0xc314977
+	bne	a4,a5,.L45
+	.word	0xc354977
 	lbu	a5,-58(s0)
 	sext.w	a5,a5
 	addiw	a5,a5,-32
 	sext.w	a5,a5
-	j	.L45
-.L44:
-	.word	0x3c7b977
+	j	.L46
+.L45:
+	.word	0x3c54977
 	lbu	a5,-58(s0)
 	sext.w	a5,a5
-.L45:
+	j	.L46
+.L46:
 	.word	0x8043977
 	mv	a4,a5
 	li	a5,69
-	beq	a4,a5,.L43
-.L40:
-	.word	0x40fd977
-	lui	a5,%hi(.LC3)
-	addi	a0,a5,%lo(.LC3)
+	beq	a4,a5,.L44
+.L41:
+	.word	0xcc7d977
+	lui	a5,%hi(.LC4)
+	addi	a0,a5,%lo(.LC4)
 	csrwi	0xff,0
 	call	puts
 	csrwi	0xff,1
-	.word	0x699b977
+	.word	0x689b977
 	li	a5,-1
 	sw	a5,-52(s0)
-	j	.L46
-.L43:
-	.word	0x399c977
+	j	.L47
+.L44:
+	.word	0x391c977
 	ld	a5,-1168(s0)
 	ld	a5,32(a5)
 	sd	a5,-40(s0)
 	sw	zero,-44(s0)
-	j	.L47
-.L54:
-	.word	0xcebb977
+	j	.L48
+.L55:
+	.word	0xcfbb977
 	ld	a5,-40(s0)
 	addi	a4,a5,1
 	sd	a4,-40(s0)
@@ -825,29 +859,30 @@ main:
 	sext.w	a5,a5
 	mv	a4,a5
 	li	a5,2
-	bne	a4,a5,.L48
-	.word	0xc324977
+	bne	a4,a5,.L49
+	.word	0xc364977
 	lbu	a5,-59(s0)
 	sext.w	a5,a5
 	addiw	a5,a5,-32
 	sext.w	a5,a5
-	j	.L49
-.L48:
-	.word	0x3c4b977
+	j	.L50
+.L49:
+	.word	0x3c64977
 	lbu	a5,-59(s0)
 	sext.w	a5,a5
-.L49:
+	j	.L50
+.L50:
 	.word	0x4e13977
 	sb	a5,-60(s0)
 	lbu	a5,-60(s0)
 	andi	a4,a5,0xff
 	li	a5,47
-	bleu	a4,a5,.L50
+	bleu	a4,a5,.L51
 	.word	0xada4977
 	lbu	a5,-60(s0)
 	andi	a4,a5,0xff
 	li	a5,57
-	bgtu	a4,a5,.L50
+	bgtu	a4,a5,.L51
 	.word	0xd0e8977
 	lw	a5,-48(s0)
 	slliw	a5,a5,4
@@ -858,18 +893,18 @@ main:
 	sext.w	a5,a5
 	addiw	a5,a5,-48
 	sw	a5,-48(s0)
-	j	.L51
-.L50:
+	j	.L52
+.L51:
 	.word	0xb634977
 	lbu	a5,-60(s0)
 	andi	a4,a5,0xff
 	li	a5,64
-	bleu	a4,a5,.L52
+	bleu	a4,a5,.L53
 	.word	0xaa54977
 	lbu	a5,-60(s0)
 	andi	a4,a5,0xff
 	li	a5,70
-	bgtu	a4,a5,.L52
+	bgtu	a4,a5,.L53
 	.word	0xdbb8977
 	lw	a5,-48(s0)
 	slliw	a5,a5,4
@@ -880,27 +915,27 @@ main:
 	sext.w	a5,a5
 	addiw	a5,a5,-55
 	sw	a5,-48(s0)
-	j	.L51
-.L52:
-	.word	0x323d977
-	lui	a5,%hi(.LC4)
-	addi	a0,a5,%lo(.LC4)
+	j	.L52
+.L53:
+	.word	0xaafd977
+	lui	a5,%hi(.LC5)
+	addi	a0,a5,%lo(.LC5)
 	csrwi	0xff,0
 	call	puts
 	csrwi	0xff,1
-	.word	0x17cb977
+	.word	0x110b977
 	li	a5,-2
 	sw	a5,-52(s0)
-	j	.L46
-.L51:
-	.word	0x7570977
+	j	.L47
+.L52:
+	.word	0x7770977
 	lw	a5,-44(s0)
 	addiw	a4,a5,1
 	sw	a4,-44(s0)
 	andi	a5,a5,1
 	sext.w	a5,a5
-	beqz	a5,.L47
-	.word	0x4a72977
+	beqz	a5,.L48
+	.word	0x4a5d977
 	lw	a5,-44(s0)
 	srliw	a4,a5,31
 	addw	a5,a4,a5
@@ -913,55 +948,56 @@ main:
 	addi	a3,s0,-16
 	add	a5,a3,a5
 	sb	a4,-80(a5)
-.L47:
+	j	.L48
+.L48:
 	.word	0x933c977
 	lw	a5,-44(s0)
 	sext.w	a4,a5
 	li	a5,63
-	bgt	a4,a5,.L53
-	.word	0x7b67977
+	bgt	a4,a5,.L54
+	.word	0x7167977
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
-	bnez	a5,.L54
-.L53:
+	bnez	a5,.L55
+.L54:
 	.word	0x89e7977
 	ld	a5,-40(s0)
 	lbu	a5,0(a5)
-	beqz	a5,.L55
-	.word	0xaa7d977
-	lui	a5,%hi(.LC5)
-	addi	a0,a5,%lo(.LC5)
-	csrwi	0xff,0
-	call	puts
-	csrwi	0xff,1
-	.word	0x8bb977
-	li	a5,-3
-	sw	a5,-52(s0)
-	j	.L46
-.L55:
-	.word	0x873c977
-	lw	a5,-44(s0)
-	sext.w	a4,a5
-	li	a5,31
-	ble	a4,a5,.L56
-	.word	0x2e5b977
-	lw	a5,-44(s0)
-	andi	a5,a5,15
-	sext.w	a5,a5
-	beqz	a5,.L57
-.L56:
-	.word	0xa97d977
+	beqz	a5,.L56
+	.word	0xa37d977
 	lui	a5,%hi(.LC6)
 	addi	a0,a5,%lo(.LC6)
 	csrwi	0xff,0
 	call	puts
 	csrwi	0xff,1
-	.word	0x7ab977
+	.word	0xa3b977
+	li	a5,-3
+	sw	a5,-52(s0)
+	j	.L47
+.L56:
+	.word	0x873c977
+	lw	a5,-44(s0)
+	sext.w	a4,a5
+	li	a5,31
+	ble	a4,a5,.L57
+	.word	0x2e5b977
+	lw	a5,-44(s0)
+	andi	a5,a5,15
+	sext.w	a5,a5
+	beqz	a5,.L58
+.L57:
+	.word	0x9e7d977
+	lui	a5,%hi(.LC7)
+	addi	a0,a5,%lo(.LC7)
+	csrwi	0xff,0
+	call	puts
+	csrwi	0xff,1
+	.word	0x12b977
 	li	a5,-4
 	sw	a5,-52(s0)
-	j	.L46
-.L57:
-	.word	0x1692977
+	j	.L47
+.L58:
+	.word	0x92977
 	lw	a5,-44(s0)
 	srliw	a4,a5,31
 	addw	a5,a4,a5
@@ -970,8 +1006,8 @@ main:
 	ld	a5,-1168(s0)
 	addi	a5,a5,8
 	ld	a4,0(a5)
-	lui	a5,%hi(.LC7)
-	addi	a1,a5,%lo(.LC7)
+	lui	a5,%hi(.LC8)
+	addi	a1,a5,%lo(.LC8)
 	mv	a0,a4
 	csrwi	0xff,0
 	call	fopen
@@ -979,28 +1015,28 @@ main:
 	.word	0x9fe4977
 	sd	a0,-24(s0)
 	ld	a5,-24(s0)
-	bnez	a5,.L58
-	.word	0xbe7e977
+	bnez	a5,.L59
+	.word	0xa47e977
 	ld	a5,-1168(s0)
 	addi	a5,a5,8
 	ld	a5,0(a5)
 	mv	a1,a5
-	lui	a5,%hi(.LC8)
-	addi	a0,a5,%lo(.LC8)
+	lui	a5,%hi(.LC9)
+	addi	a0,a5,%lo(.LC9)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
-	.word	0x3f9b977
+	.word	0x391b977
 	li	a5,-5
 	sw	a5,-52(s0)
-	j	.L46
-.L58:
-	.word	0x552e977
+	j	.L47
+.L59:
+	.word	0x4f2e977
 	ld	a5,-1168(s0)
 	addi	a5,a5,16
 	ld	a4,0(a5)
-	lui	a5,%hi(.LC9)
-	addi	a1,a5,%lo(.LC9)
+	lui	a5,%hi(.LC10)
+	addi	a1,a5,%lo(.LC10)
 	mv	a0,a4
 	csrwi	0xff,0
 	call	fopen
@@ -1008,23 +1044,23 @@ main:
 	.word	0x9b64977
 	sd	a0,-32(s0)
 	ld	a5,-32(s0)
-	bnez	a5,.L59
-	.word	0xb47e977
+	bnez	a5,.L60
+	.word	0xae7e977
 	ld	a5,-1168(s0)
 	addi	a5,a5,8
 	ld	a5,0(a5)
 	mv	a1,a5
-	lui	a5,%hi(.LC10)
-	addi	a0,a5,%lo(.LC10)
+	lui	a5,%hi(.LC11)
+	addi	a0,a5,%lo(.LC11)
 	csrwi	0xff,0
 	call	printf
 	csrwi	0xff,1
-	.word	0x348b977
+	.word	0x360b977
 	li	a5,-6
 	sw	a5,-52(s0)
-	j	.L46
-.L59:
-	.word	0xc6a8977
+	j	.L47
+.L60:
+	.word	0xc428977
 	ld	a5,-1168(s0)
 	addi	a5,a5,24
 	ld	a5,0(a5)
@@ -1044,33 +1080,32 @@ main:
 	sext.w	a5,a5
 	mv	a4,a5
 	li	a5,2
-	bne	a4,a5,.L60
-	.word	0xc344977
+	bne	a4,a5,.L61
+	.word	0xc304977
 	lbu	a5,-61(s0)
 	sext.w	a5,a5
 	addiw	a5,a5,-32
 	sext.w	a5,a5
-	j	.L61
-.L60:
-	.word	0x3c2b977
+	j	.L62
+.L61:
+	.word	0x3c04977
 	lbu	a5,-61(s0)
 	sext.w	a5,a5
-.L61:
-	.word	0x9443977
+	j	.L62
+.L62:
+	.word	0x9e43977
 	mv	a4,a5
 	li	a5,69
-	bne	a4,a5,.L62
-	.word	0x3e37977
+	bne	a4,a5,.L63
+	.word	0x6874977
 	lw	a4,-56(s0)
 	addi	a3,s0,-1144
 	addi	a5,s0,-96
 	li	a2,1
 	mv	a1,a4
 	mv	a0,a5
-	csrwi	0xff,0
 	call	set_key
-	csrwi	0xff,1
-	.word	0x8763977
+	.word	0xd920977
 	ld	a5,-1168(s0)
 	addi	a5,a5,8
 	ld	a4,0(a5)
@@ -1079,25 +1114,21 @@ main:
 	mv	a2,a5
 	ld	a1,-32(s0)
 	ld	a0,-24(s0)
-	csrwi	0xff,0
 	call	encfile
-	csrwi	0xff,1
-	.word	0xda2e977
+	.word	0xdb6e977
 	mv	a5,a0
 	sw	a5,-52(s0)
-	j	.L46
-.L62:
-	.word	0x3887977
+	j	.L47
+.L63:
+	.word	0x6ec4977
 	lw	a4,-56(s0)
 	addi	a3,s0,-1144
 	addi	a5,s0,-96
 	li	a2,2
 	mv	a1,a4
 	mv	a0,a5
-	csrwi	0xff,0
 	call	set_key
-	csrwi	0xff,1
-	.word	0x7660977
+	.word	0x2963977
 	ld	a5,-1168(s0)
 	addi	a5,a5,8
 	ld	a3,0(a5)
@@ -1108,31 +1139,30 @@ main:
 	mv	a2,a5
 	ld	a1,-32(s0)
 	ld	a0,-24(s0)
-	csrwi	0xff,0
 	call	decfile
-	csrwi	0xff,1
-	.word	0xdd41977
+	.word	0xdd6e977
 	mv	a5,a0
 	sw	a5,-52(s0)
-.L46:
+	j	.L47
+.L47:
 	.word	0x45e3977
 	ld	a5,-32(s0)
-	beqz	a5,.L63
+	beqz	a5,.L64
 	.word	0x846b977
 	ld	a0,-32(s0)
 	csrwi	0xff,0
 	call	fclose
 	csrwi	0xff,1
-.L63:
+.L64:
 	.word	0x4563977
 	ld	a5,-24(s0)
-	beqz	a5,.L64
+	beqz	a5,.L65
 	.word	0x9aeb977
 	ld	a0,-24(s0)
 	csrwi	0xff,0
 	call	fclose
 	csrwi	0xff,1
-.L64:
+.L65:
 	.word	0xcda5977
 	lw	a5,-52(s0)
 	mv	a0,a5
@@ -1144,16 +1174,16 @@ main:
 	.size	main, .-main
 	.section	.sdata,"aw",@progbits
 	.align	3
-	.type	mt.3157, @object
-	.size	mt.3157, 8
-mt.3157:
+	.type	mt.3160, @object
+	.size	mt.3160, 8
+mt.3160:
 	.dword	1
-	.local	a.3156
-	.comm	a.3156,16,8
+	.local	a.3159
+	.comm	a.3159,16,8
 	.align	3
-	.type	count.3158, @object
-	.size	count.3158, 8
-count.3158:
+	.type	count.3161, @object
+	.size	count.3161, 8
+count.3161:
 	.dword	4
-	.local	r.3159
-	.comm	r.3159,4,8
+	.local	r.3162
+	.comm	r.3162,4,8
