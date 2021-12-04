@@ -5707,7 +5707,7 @@ im_tab:
 	.globl	set_key
 	.type	set_key, @function
 set_key:
-	.word	0x7000977
+	.word	
 	addi	sp,sp,-80
 	sd	s0,72(sp)
 	addi	s0,sp,80
@@ -5719,29 +5719,29 @@ set_key:
 	ld	a5,-64(s0)
 	andi	a5,a5,7
 	bnez	a5,.L2
-	.word	0x30e0977
+	.word	
 	ld	a4,-64(s0)
 	li	a5,15
 	bleu	a4,a5,.L2
-	.word	0x2a10977
+	.word	
 	ld	a4,-64(s0)
 	li	a5,32
 	bgtu	a4,a5,.L2
-	.word	0x383b977
+	.word	
 	lw	a5,-68(s0)
 	andi	a5,a5,1
 	sext.w	a5,a5
 	bnez	a5,.L3
-	.word	0x300b977
+	.word	
 	lw	a5,-68(s0)
 	andi	a5,a5,2
 	sext.w	a5,a5
 	bnez	a5,.L3
 .L2:
-	.word	0x4de3977
+	.word	
 	ld	a5,-64(s0)
 	beqz	a5,.L4
-	.word	0xed5c977
+	.word	
 	ld	a5,-80(s0)
 	lbu	a5,1040(a5)
 	andi	a5,a5,-4
@@ -5751,7 +5751,7 @@ set_key:
 	li	a5,0
 	j	.L6
 .L4:
-	.word	0xbe48977
+	.word	
 	ld	a5,-80(s0)
 	ld	a5,0(a5)
 	slli	a5,a5,2
@@ -5759,7 +5759,7 @@ set_key:
 	sraiw	a5,a5,16
 	j	.L6
 .L3:
-	.word	0x9673977
+	.word	
 	ld	a5,-80(s0)
 	lbu	a5,1040(a5)
 	slliw	a5,a5,24
@@ -5787,11 +5787,11 @@ set_key:
 	ld	a5,0(a5)
 	li	a4,4
 	bgeu	a5,a4,.L7
-	.word	0x7fc977
+	.word	
 	li	a5,4
 	j	.L7
 .L7:
-	.word	0x9964977
+	.word	
 	addi	a4,a5,6
 	ld	a5,-80(s0)
 	sd	a4,8(a5)
@@ -5830,20 +5830,20 @@ set_key:
 	ld	a5,0(a5)
 	li	a4,6
 	beq	a5,a4,.L9
-	.word	0xb117977
+	.word	
 	li	a4,8
 	beq	a5,a4,.L10
-	.word	0xe3d7977
+	.word	
 	li	a4,4
 	bne	a5,a4,.L8
-	.word	0x16f977
+	.word	
 	j	.L11
 .L17:
-	.word	0x3c977
+	.word	
 	nop
 	j	.L11
 .L11:
-	.word	0xfad3977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-24(s0)
@@ -5944,10 +5944,10 @@ set_key:
 	ld	a4,-24(s0)
 	ld	a5,-32(s0)
 	bltu	a4,a5,.L17
-	.word	0x55ef977
+	.word	
 	j	.L8
 .L9:
-	.word	0x46f977
+	.word	
 	ld	a5,-56(s0)
 	ld	a4,16(a5)
 	ld	a5,-80(s0)
@@ -5958,7 +5958,7 @@ set_key:
 	sd	a4,56(a5)
 	j	.L12
 .L12:
-	.word	0xfb53977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-24(s0)
@@ -6079,10 +6079,10 @@ set_key:
 	ld	a4,-24(s0)
 	ld	a5,-32(s0)
 	bltu	a4,a5,.L12
-	.word	0x342f977
+	.word	
 	j	.L8
 .L10:
-	.word	0xaf977
+	.word	
 	ld	a5,-56(s0)
 	ld	a4,16(a5)
 	ld	a5,-80(s0)
@@ -6101,7 +6101,7 @@ set_key:
 	sd	a4,72(a5)
 	j	.L13
 .L13:
-	.word	0xaa01977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-24(s0)
@@ -6288,11 +6288,11 @@ set_key:
 	ld	a4,-24(s0)
 	ld	a5,-32(s0)
 	bltu	a4,a5,.L13
-	.word	0x3c977
+	.word	
 	nop
 	j	.L8
 .L8:
-	.word	0x73a4977
+	.word	
 	ld	a5,-80(s0)
 	lbu	a5,1040(a5)
 	sext.w	a5,a5
@@ -6301,7 +6301,7 @@ set_key:
 	mv	a4,a5
 	li	a5,1
 	beq	a4,a5,.L14
-	.word	0x463c977
+	.word	
 	ld	a5,-80(s0)
 	addi	a4,a5,528
 	ld	a5,-80(s0)
@@ -6351,7 +6351,7 @@ set_key:
 	sd	a5,-48(s0)
 	j	.L15
 .L16:
-	.word	0xf53f977
+	.word	
 	ld	a5,-24(s0)
 	ld	a5,0(a5)
 	andi	a5,a5,0xff
@@ -6568,12 +6568,12 @@ set_key:
 	sd	a5,-48(s0)
 	j	.L15
 .L15:
-	.word	0x1190977
+	.word	
 	ld	a5,-80(s0)
 	ld	a5,8(a5)
 	ld	a4,-48(s0)
 	bltu	a4,a5,.L16
-	.word	0x2f977
+	.word	
 	ld	a4,-24(s0)
 	addi	a5,a4,8
 	sd	a5,-24(s0)
@@ -6608,11 +6608,11 @@ set_key:
 	sd	a4,0(a5)
 	j	.L14
 .L14:
-	.word	0x7ac977
+	.word	
 	li	a5,1
 	j	.L6
 .L6:
-	.word	0x6e60977
+	.word	
 	mv	a0,a5
 	ld	s0,72(sp)
 	addi	sp,sp,80
@@ -6623,7 +6623,7 @@ set_key:
 	.globl	encrypt
 	.type	encrypt, @function
 encrypt:
-	.word	0xa272977
+	.word	
 	addi	sp,sp,-128
 	sd	s0,120(sp)
 	addi	s0,sp,128
@@ -6639,11 +6639,11 @@ encrypt:
 	andi	a5,a5,1
 	sext.w	a5,a5
 	bnez	a5,.L19
-	.word	0x316c977
+	.word	
 	li	a5,0
 	j	.L25
 .L19:
-	.word	0x2b10977
+	.word	
 	ld	a5,-104(s0)
 	ld	a4,0(a5)
 	ld	a5,-24(s0)
@@ -6681,16 +6681,16 @@ encrypt:
 	ld	a5,8(a5)
 	li	a4,12
 	beq	a5,a4,.L22
-	.word	0x8b77977
+	.word	
 	li	a4,14
 	beq	a5,a4,.L23
-	.word	0xbbb7977
+	.word	
 	li	a4,10
 	beq	a5,a4,.L24
-	.word	0x26ff977
+	.word	
 	j	.L21
 .L23:
-	.word	0x3ff977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-88(s0)
@@ -7063,7 +7063,7 @@ encrypt:
 	sd	a5,-24(s0)
 	j	.L22
 .L22:
-	.word	0x3ff977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-88(s0)
@@ -7436,7 +7436,7 @@ encrypt:
 	sd	a5,-24(s0)
 	j	.L24
 .L24:
-	.word	0x83bb977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-88(s0)
@@ -9278,7 +9278,7 @@ encrypt:
 	sd	a5,-64(s0)
 	j	.L21
 .L21:
-	.word	0x8638977
+	.word	
 	ld	a4,-88(s0)
 	ld	a5,-112(s0)
 	sd	a4,0(a5)
@@ -9297,7 +9297,7 @@ encrypt:
 	li	a5,1
 	j	.L25
 .L25:
-	.word	0x6060977
+	.word	
 	mv	a0,a5
 	ld	s0,120(sp)
 	addi	sp,sp,128
@@ -9308,7 +9308,7 @@ encrypt:
 	.globl	decrypt
 	.type	decrypt, @function
 decrypt:
-	.word	0x8242977
+	.word	
 	addi	sp,sp,-128
 	sd	s0,120(sp)
 	addi	s0,sp,128
@@ -9324,11 +9324,11 @@ decrypt:
 	andi	a5,a5,2
 	sext.w	a5,a5
 	bnez	a5,.L27
-	.word	0x316c977
+	.word	
 	li	a5,0
 	j	.L33
 .L27:
-	.word	0x2b10977
+	.word	
 	ld	a5,-104(s0)
 	ld	a4,0(a5)
 	ld	a5,-24(s0)
@@ -9366,16 +9366,16 @@ decrypt:
 	ld	a5,8(a5)
 	li	a4,12
 	beq	a5,a4,.L30
-	.word	0x8b77977
+	.word	
 	li	a4,14
 	beq	a5,a4,.L31
-	.word	0xbbb7977
+	.word	
 	li	a4,10
 	beq	a5,a4,.L32
-	.word	0x26ff977
+	.word	
 	j	.L29
 .L31:
-	.word	0x3ff977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-88(s0)
@@ -9748,7 +9748,7 @@ decrypt:
 	sd	a5,-24(s0)
 	j	.L30
 .L30:
-	.word	0x3ff977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-88(s0)
@@ -10121,7 +10121,7 @@ decrypt:
 	sd	a5,-24(s0)
 	j	.L32
 .L32:
-	.word	0x83bb977
+	.word	
 	ld	a5,-24(s0)
 	ld	a4,0(a5)
 	ld	a5,-88(s0)
@@ -11963,7 +11963,7 @@ decrypt:
 	sd	a5,-64(s0)
 	j	.L29
 .L29:
-	.word	0x8638977
+	.word	
 	ld	a4,-88(s0)
 	ld	a5,-112(s0)
 	sd	a4,0(a5)
@@ -11982,7 +11982,7 @@ decrypt:
 	li	a5,1
 	j	.L33
 .L33:
-	.word	0x6060977
+	.word	
 	mv	a0,a5
 	ld	s0,120(sp)
 	addi	sp,sp,128

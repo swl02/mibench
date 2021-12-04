@@ -277,7 +277,7 @@ with open('../dump/' + sys.argv[1] + '.dump','r') as fp:
 
         # identify basic block via the 0x977
         # print(splitted_string)
-        if (is_block(next_splitted_string) or (len(next_splitted_string) == 2 and next_splitted_string[1].find("<atexit>") != -1)):
+        if (is_block(next_splitted_string) or (len(next_splitted_string) == 2)):
             if start == 1:
                 chk_for_bb.append(checksum)
             start = 1

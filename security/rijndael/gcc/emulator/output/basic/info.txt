@@ -1,0 +1,9 @@
+24811 ticks
+2481024 cycles
+633937 instructions
+3.91 CPI
+
+24734 ticks
+2473409 cycles
+635350 instructions
+3.89 CPI

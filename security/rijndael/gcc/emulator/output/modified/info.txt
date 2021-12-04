@@ -1,0 +1,19 @@
+23626 ticks
+2362631 cycles
+604346 instructions
+3.91 CPI
+
+23542 ticks
+2354137 cycles
+604842 instructions
+3.89 CPI
+
+23637 ticks
+2363672 cycles
+604170 instructions
+3.91 CPI
+
+23587 ticks
+2358677 cycles
+604670 instructions
+3.90 CPI
